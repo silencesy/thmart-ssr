@@ -29,9 +29,8 @@
         },
         methods: {
             goHome() {
-                this.$router.push({
-                    name: 'index'
-                });
+                let url = window.location.origin;
+                window.location.href = url;
             },
             // 搜索框获取焦点
             handleinput() {

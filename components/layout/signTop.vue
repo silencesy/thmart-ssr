@@ -21,9 +21,8 @@
         },
         methods: {
             goHome() {
-                this.$router.push({
-                    name: 'index'
-                });
+                let url = window.location.origin;
+                window.location.href = url;
             },
         }
     }
