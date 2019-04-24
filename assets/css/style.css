@@ -1,0 +1,71 @@
+* {
+	padding: 0;
+	margin: 0; 
+}
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+.theme_color {
+	color: #F9421E !important;
+}
+ul,li {
+	list-style: none;
+}
+.el-carousel__indicator.is-active button {
+	width: 30px;
+	height: 2px;
+	background-color: #F9421E;
+}
+.el-carousel__indicators .el-carousel__button {
+	background-color: #fff;
+	width: 22px;
+	height: 2px;
+}
+.el-carousel__container .el-carousel__arrow {
+	border-radius: 0;
+	background-color: rgba(31, 45, 61, .25);
+}
+.el-carousel__container .el-carousel__arrow:hover {
+	background-color: rgba(31, 45, 61, .45);
+}
+
+
+.swiper-container .swiper-wrapper {
+	position: static;
+}
+.swiper-container .swiper-wrapper .swiper-button-prev, .swiper-button-next {
+	position: static;
+}
+
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  -webkit-animation-name: zoomIn;
+  animation-name: zoomIn;
+}
+.animated {
+	transiton: all 1s;
+}
