@@ -223,21 +223,26 @@
         .dropdownBox
             width: 1200px
             margin: 0 auto
+            padding: 0 38px
             .listPer
                 float: left
                 width: 50%
+                padding-top: 5px
                 li 
                     padding-left: 15px
                     color: #fff
                     padding-top: 0
                     height: 30px
+                    line-height: 30px
                     font-size: 16px
                     display: inline-block
                 .smallTitle
                     display: inline
                     li
                         color: #ffffffd1
-                        font-size: 16px
+                        font-size: 14px
+                        height: 26px
+                        line-height: 26px
                 li:hover
                     background-color: rgba(0,0,0,0)
                     color: $theme_color
@@ -246,5 +251,5 @@
                 li:first-child
                     padding-top: 2px
                 >div 
-                    width: 70%
+                    width: 100%
 </style>
