@@ -3,7 +3,7 @@
         <div class="container">
             <div class="top">
                 <div class="left">
-                    <span>That’s making your life easier!!!</span> 
+                    <span>That’s making your life easier!</span> 
                     <div class="login" v-if="!$store.state.token || $store.state.nickname=='undefined'">
                         <a @click="login">Login</a>
                         <a @click="signUp">Sign up</a>
