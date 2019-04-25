@@ -79,7 +79,7 @@
                         i 
                             display: block
                             margin-top: 20px
-                            @include sc(14px, #999)
+                            @include sc(16px, #999)
             .list:nth-child(even)
                 margin-right: 0
             .list:hover
