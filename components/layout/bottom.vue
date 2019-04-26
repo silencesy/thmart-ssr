@@ -32,7 +32,7 @@
         		</div>
         	</div>
             <div class="copy">
-                <span>© 2017 SH Aoyang Advertising Co., Ltd. 沪ICP备12038926号-5</span>
+                <span>© 2017 SH Aoyang Advertising Co., Ltd. <a href=" http://www.beian.miit.gov.cn">沪ICP备12038926号-5</a></span>
             </div> 
             <div class="license">
                 <a href="http://218.242.124.22:8081/businessCheck/verifKey.do?showType=extShow&serial=9031000020160509163750000000772558-SAIC_SHOW_310000-2018102416530034247&signData=MEUCIQC3t60+nlyg7KUeudY2jWBoeGkwSQK4vj+3hDgNkfkXVgIgV2um1aIINM4R4iqFT7WbvTYZgRb8Pk5bLeCdFBlcSLg="><img src="~/static/images/dzzyyz.png" alt=""></a>
@@ -124,6 +124,9 @@ export default {
             text-align: center
             margin: 10px 0
             @include sc(14px, $tips_color)
+            a
+                @include sc(14px, $tips_color)
+                text-decoration: underline
         .license
             text-align: center
             padding-bottom: 5px
