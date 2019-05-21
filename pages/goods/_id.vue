@@ -50,7 +50,7 @@
 								</div>
                                 <!-- 选择sku显示价格 -->
                                 <!-- 普通商品 -->
-                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='none'">
+                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='none' || skuInfo && skuInfo.type=='spell'">
                                     <span>Price</span>
                                     <div>
                                         <el-badge value="NEW" class="item">
@@ -79,6 +79,29 @@
                                     </div>
                                     <div class="GroupCountDown">
                                         <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="skuInfo.currentTime" :startTime="skuInfo.currentTime" :endTime="Number(skuInfo.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                    </div>
+                                </div>
+                                <div class="spell" v-if="goodsInfo.type == 'spell'">
+                                    <div>Group Buy List</div>
+                                    <div class="row-item" v-for="(item,index) in goodsInfo.spellInfo.spellList" :key="index">                                        
+                                        <span class="type"></span>
+                                        <div class="spell-list">
+                                            <div>
+                                                <img :src="item.headimg-url" alt="">
+                                                <i>{{item.nickname}}</i>
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    Only <i class="theme_color">{{item.number_left}}</i> Vacancy Left
+                                                </div>
+                                                <div>
+                                                    <count-down :currentTime="item.currentTime" :startTime="item.currentTime" :endTime="Number(item.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button @click="scqrcode('join',item.orderNumber)">Join Duo Deals</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row-item" v-if="!(goodsInfo.overReduce.length == 0 && goodsInfo.couponList.length == 0)">
@@ -131,7 +154,15 @@
                                         </div>
                                     </div>
                                 </div>
-								<div class="buy row-item" v-show="!groupBorder">
+								<div v-if="goodsInfo.type == 'spell'" class="buy row-item" v-show="!groupBorder">
+                                    <!-- <div id="qrcode" ref="qrcode"></div> -->
+                                    <!-- <button @click="scqrcode">生成二维码</button> -->
+									<button @click="buyNow">Buy Now</button>
+									<button @click="scqrcode('buy',goodsInfo.id)">Go Duo Deals</button>
+								</div>
+                                <div v-else class="buy row-item" v-show="!groupBorder">
+                                    <!-- <div id="qrcode" ref="qrcode"></div> -->
+                                    <!-- <button @click="scqrcode">生成二维码</button> -->
 									<button @click="buyNow">Buy Now</button>
 									<button @click="addToCart">Add To Cart</button>
 								</div>
@@ -207,10 +238,16 @@
                 </div>
             </el-dialog>
         </div>
-        <!-- 登录框 -->
+        <!-- 关注公众号二维码 -->
         <div class="follow-box">
             <el-dialog title="Scan QR code for customer service" :visible.sync="follow">
                 <img width="100%" height="auto" src="~static/images/thmartCode.jpg" alt="">
+            </el-dialog>
+        </div>
+        <!-- 拼单二维码 -->
+        <div class="follow-box">
+            <el-dialog title="Scan the code to purchase" :visible.sync="spellCode">
+                <div v-if="spellCode" id="qrcode" ref="qrcode"></div>
             </el-dialog>
         </div>
 	</div>
@@ -269,7 +306,9 @@
                 hasGroupPrice: false,
                 dialogCouponVisible: false,
                 picZoomIsShow: true,
-                follow: false
+                follow: false, //关注公众号
+                spellCode: false, //扫码走移动端拼单流程
+                // onlyOne: false //当生成一次二维码就不能生成第二次了
 	        }
         },
         async asyncData ({app,params,store}) {
@@ -301,6 +340,29 @@
             next()
         },
 		methods:{
+            scqrcode(flag,orderNumber) {
+                this.spellCode = true;
+                this.$nextTick(() => {
+                    this.qrcode(flag,orderNumber);
+                })
+            },
+            qrcode (flag,orderNumber) {
+                // this.onlyOne = true;
+                if(flag=='buy') {
+                    let qrcode = new this.$QRCode('qrcode',{
+                        width: 300, // 设置宽度，单位像素
+                        height: 300, // 设置高度，单位像素
+                        text: 'http://mob.thmart.com.cn/GoodsDetails?id=' + orderNumber // 设置二维码内容或跳转地址
+                    })
+                } else {
+                    let qrcode = new this.$QRCode('qrcode',{
+                        width: 300, // 设置宽度，单位像素
+                        height: 300, // 设置高度，单位像素
+                        text: 'http://mob.thmart.com.cn/shareShow?id=' + orderNumber // 设置二维码内容或跳转地址
+                    })
+                }
+                
+            },
             handleReviewsClick(tab, event) {
                 // console.log(event)
                 var that = this;
@@ -876,6 +938,46 @@
                         width: 540px
                         .list
                             overflow: hidden
+                            .spell
+                                margin-top: 10px
+                                color: #666
+                                .spell-list
+                                    width: 420px
+                                    height: 60px
+                                    line-height: 60px
+                                    >div
+                                        float: left
+                                    >div:nth-child(1)
+                                        font-size: 16px
+                                        width: 30%
+                                        img
+                                            width: 50px
+                                            height: 50px
+                                            float: left
+                                        i
+                                            float: left
+                                    >div:nth-child(2)
+                                        width: 35%
+                                        >div:nth-child(1)
+                                            font-size: 14px
+                                            color: #222
+                                            height: 20px
+                                            line-height: 20px
+                                            margin-top: 12px
+                                        >div:nth-child(2)
+                                            font-size: 12px
+                                            height: 16px
+                                            color: #666
+                                            line-height: 16px
+                                    >div:nth-child(3)
+                                        
+                                        text-align: right
+                                        button
+                                            width: 135px
+                                            height: 28px
+                                            border-radius: 20px
+                                            background-color: #F9421E
+                                            color: #fff
                             >.row-item.rowPrice
                                 background-color: #eee
                                 height: 48px
@@ -956,4 +1058,8 @@
     line-height: 400px
     text-align: center
     color: #666
+#qrcode
+    width: 300px
+    height: 300px
+    margin: 10px auto
 </style>

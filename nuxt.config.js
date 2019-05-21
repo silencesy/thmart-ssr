@@ -58,6 +58,10 @@ module.exports = {
         { src: '~/plugins/vue-awesome-swiper', ssr: false },
         { src: '~plugins/element-ui', ssr: true },
         { src: '~plugins/vue-lazyload', ssr: false },
+        {
+            src: '~plugins/qrcode',
+            ssr: false
+        },
         // {src:'~plugins/api', ssr: true},
         /**
          * [公共函数]

@@ -33,8 +33,14 @@
 						<div v-if="item.status == 0">
 							<userOrder :orderDataList="item" flag="pay" type="unpaid" />
 						</div>
+						<div v-if="item.status == 5">
+							<userOrder :orderDataList="item" flag="pay" type="unpaid" />
+						</div>
 						<div v-else-if="item.status == 1">
 							<userOrder :orderDataList="item" flag="details" type="unshipped" />
+						</div>
+						<div v-else-if="item.status == 6">
+							<userOrder :orderDataList="item" @bindSpell="scqrcode" flag="spell" type="spell" />
 						</div>
 						<div v-else-if="item.status == 2">
 							<userOrder :orderDataList="item" flag="track" type="progress" />
@@ -61,6 +67,12 @@
 				</el-pagination>
 			</div>
 		</div>
+		<!-- 拼单二维码 -->
+        <div class="follow-box">
+            <el-dialog title="Scan QR code for Go Duo Deals" :visible.sync="spellCode">
+                <div v-if="spellCode" id="qrcode" ref="qrcode"></div>
+            </el-dialog>
+        </div>
 	</div>
 </template>
 <script>
@@ -84,7 +96,8 @@
 			return {
 				titleIsShow: true,
 				status: '',
-				currentPage: 1
+				currentPage: 1,
+				spellCode: false
 			}
 		},
 		async asyncData ({app,params}) {
@@ -93,13 +106,13 @@
 			if (params.id == 'all') {
 				status = '';
 			} else if (params.id == 'unpaid') {
-				status = 0;
+				status = [0,5];
 			} else if (params.id == 'unshipped') {
-				status = 1;
+				status = [1,6,7];
 			} else if (params.id == 'progress') {
-				status = 2;
+				status = [2];
 			} else if (params.id == 'shipped') {
-				status = 3;
+				status = [3];
 			}
 			const param = {
 				status: status,
@@ -127,6 +140,21 @@
 		    
 	  	},
 		methods: {
+			scqrcode(orderNumber) {
+                this.spellCode = true;
+                this.$nextTick(() => {
+                    this.qrcode(orderNumber);
+                })
+            },
+            qrcode (orderNumber) {
+				console.log('http://mob.thmart.com.cn/shareShow?id=' + orderNumber);
+                // this.onlyOne = true;
+                let qrcode = new this.$QRCode('qrcode',{
+                    width: 300, // 设置宽度，单位像素
+                    height: 300, // 设置高度，单位像素
+                    text: 'http://mob.thmart.com.cn/shareShow?id=' + orderNumber // 设置二维码内容或跳转地址
+                })
+            },
 			// 获取数据
 			getData() {
 				var that = this;
@@ -172,46 +200,50 @@
 </script>
 
 <style lang='sass' scoped>
-	@import '~/assets/sass/common.sass'
-	.user 
-		.container
-			.userTitle
-				background-color: #eee
-				width: 968px
+@import '~/assets/sass/common.sass'
+.user 
+	.container
+		.userTitle
+			background-color: #eee
+			width: 968px
+			overflow: hidden
+			ul 
 				overflow: hidden
-				ul 
-					overflow: hidden
-				li 
-					width: 20%
-					float: left 
-					text-align: center
-					a 
-						width: 100% 
-						padding: 20px 0
-						display: inline-block 
-					a:after 
-						content: "|"
-						float: right
-						color: #dfdfdf
-				li:last-child
-					a:after
-						content: " "
-				li.active
-					a
-						color: $theme_color
-			.orderTitle 
-				border-bottom: $border
-				span 
-					width: 155px
-					text-align: center
-					display: inline-block
-					padding: 15px 0 
-				span:first-child 
-					width: 320px
-	.noOrderList
-		position: relative
-		height: 311px
-		p 
-			@include center
-			color: #999
+			li 
+				width: 20%
+				float: left 
+				text-align: center
+				a 
+					width: 100% 
+					padding: 20px 0
+					display: inline-block 
+				a:after 
+					content: "|"
+					float: right
+					color: #dfdfdf
+			li:last-child
+				a:after
+					content: " "
+			li.active
+				a
+					color: $theme_color
+		.orderTitle 
+			border-bottom: $border
+			span 
+				width: 155px
+				text-align: center
+				display: inline-block
+				padding: 15px 0 
+			span:first-child 
+				width: 320px
+.noOrderList
+	position: relative
+	height: 311px
+	p 
+		@include center
+		color: #999
+#qrcode
+    width: 300px
+    height: 300px
+    margin: 10px auto
 </style>
