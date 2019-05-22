@@ -42,6 +42,9 @@
 						<div v-else-if="item.status == 6">
 							<userOrder :orderDataList="item" @bindSpell="scqrcode" flag="spell" type="spell" />
 						</div>
+						<div v-else-if="item.status == 7">
+							<userOrder :orderDataList="item" @bindSpell="scqrcode" flag="spell" type="spell" />
+						</div>
 						<div v-else-if="item.status == 2">
 							<userOrder :orderDataList="item" flag="track" type="progress" />
 						</div>
@@ -69,7 +72,7 @@
 		</div>
 		<!-- 拼单二维码 -->
         <div class="follow-box">
-            <el-dialog title="Scan QR code for Go Duo Deals" :visible.sync="spellCode">
+            <el-dialog title="Scan the code to share" :visible.sync="spellCode">
                 <div v-if="spellCode" id="qrcode" ref="qrcode"></div>
             </el-dialog>
         </div>

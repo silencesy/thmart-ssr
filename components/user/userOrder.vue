@@ -10,7 +10,8 @@
                     <span class="del" :class="{status: type=='closed'}" @click="deleteOrderItem(orderDataList.orderNumber)"><i class="iconfont icon-shanchu"></i> Closed</span>
                     <span :class="{status: type=='unshipped'}">Unshipped</span>
                     <span :class="{status: type=='progress'}">In Progress</span>
-                    <span :class="{status: type=='spell'}">Share with Your Friend, {{orderDataList.number_left}} Vacancy Left</span>
+                    <span :class="{status: type=='spell' && orderDataList.number_left>0}">Share with Your Friend, {{orderDataList.number_left}} Spot Left</span>
+                    <span :class="{status: type=='spell' && orderDataList.number_left<=0}">Completed</span>
                     <span class="del" :class="{status: type=='shipped'}" @click="deleteOrderItem(orderDataList.orderNumber)"><i class="iconfont icon-shanchu"></i> Shipped</span>
                 </div>
             </div>
@@ -56,8 +57,11 @@
                             <button class="redColor" @click="pay(orderDataList.orderNumber)">Pay</button>
                             <button class="greyColor" @click="goDetails(orderDataList.status,orderDataList.orderNumber)">Details</button>  
                         </div>
-                        <div :class="{statusBtn: flag=='spell'}">
+                        <div :class="{statusBtn: flag=='spell' && orderDataList.number_left>0}">
                             <button class="redColor spell" @click="bindSpell(orderDataList.orderNumber)">Invite Your Friends</button>
+                            <button class="greyColor" @click="goDetails(orderDataList.status,orderDataList.orderNumber)">Details</button>  
+                        </div>
+                        <div :class="{statusBtn: flag=='spell' && orderDataList.number_left<=0}">
                             <button class="greyColor" @click="goDetails(orderDataList.status,orderDataList.orderNumber)">Details</button>  
                         </div>
                         <div :class="{statusBtn: flag=='details'}">
@@ -105,9 +109,9 @@
         methods: {
             // 跳转详情页
             goDetails(status,orderNumber) {
-                if (status == 0) { // 未支付
+                if (status == 0 || status == 5) { // 未支付
                     this.$router.push({path: '/userCenter/orderStatus/orderUnpaid',query: {orderNumber: orderNumber}})
-                } else if (status == 1) { // 支付
+                } else if (status == 1 || status == 6 || status == 7) { // 支付
                     this.$router.push({path: '/userCenter/orderStatus/orderPaid',query: {orderNumber: orderNumber}}) 
                 } else if (status == 2) {// 运输中
                     this.$router.push({path: '/userCenter/orderStatus/orderProgress',query: {orderNumber: orderNumber}})

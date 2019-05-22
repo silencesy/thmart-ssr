@@ -1,6 +1,6 @@
 <template>
 	<div class="logistics">
-		<div class="statusInfo container" v-if="logistics != '单号不存在或者已经过期!' && logistics != '请提供快递公司编码'">
+		<div class="statusInfo container" v-if="logistics != '单号不存在或者已经过期!' && logistics != '请提供快递公司编码' && param.logistics !=0">
 			<p>logistics: {{param.logistics}}&nbsp;&nbsp;&nbsp;&nbsp;company: {{logistics.com}} ({{logistics.company}})</p>
 			<p v-for="(item,index) in logistics.list" :key="index">
 				<span v-if="index == 0"><img src="~/static/images/icon-yuandian.png" alt="">{{item.datetime}}</span>
@@ -8,7 +8,7 @@
 				<span>{{item.remark}}</span>
 			</p>
 		</div>
-		<div class="nologistics">
+		<div class="nologistics" v-else>
 			Your parcel is still in preparation,please be patient!
 		</div>
 	</div>
