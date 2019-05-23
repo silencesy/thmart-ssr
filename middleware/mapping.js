@@ -11,7 +11,7 @@ export default function({ route, req, params, query, redirect }) {
         switch (routeName) {
             // 首页
             case 'index':
-                redirect(baseUrl);
+                redirect(baseUrl + '?from=singlemessage&isappinstalled=0');
                 break;
                 // 文章列表页
             case 'article-articleList':
