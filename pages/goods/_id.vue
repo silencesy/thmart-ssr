@@ -23,6 +23,7 @@
                             <!-- 商品类型图标（因为上面用到放大镜，所以图标不能使用子绝父相，因此放下面） -->
                             <img src="~static/images/sale.png" v-if="goodsInfo.type=='sale'" style="position: absolute;top: -375px;left: 5px; width: 36px;z-index: 999;" alt="">
                             <img src="~static/images/group.png" v-if="goodsInfo.type=='group'" style="position: absolute;top: -375px;left: 5px; width: 69px;z-index: 999;" alt="">
+                            <img src="~static/images/duodeal.png" v-if="goodsInfo.type=='spell'" style="position: absolute;top: -375px;left: 5px; width: 69px;z-index: 999;" alt="">
 					    	<div class="small-img-box" :class="{active: smallImgActiveNumber==index}" v-for="(item,index) in goodsInfo.figure" @mouseover='smallImgActive(index,item)' :key="index">
 					    		<img v-lazy="item" alt="">
 					    	</div>
@@ -39,7 +40,7 @@
 								<div class="row-item rowPrice" :class="{redPrice: goodsInfo.type=='group'}" v-if="!skuInfo && !skuInfo">
 									<span>Price</span>
 									<div>
-										<el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':'GROUPBUY'" class="item">
+										<el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'GROUPBUY':'Duo Deal' " class="item">
 										  	<el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
                                             <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
 										</el-badge>
@@ -50,10 +51,18 @@
 								</div>
                                 <!-- 选择sku显示价格 -->
                                 <!-- 普通商品 -->
-                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='none' || skuInfo && skuInfo.type=='spell'">
+                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='none'">
                                     <span>Price</span>
                                     <div>
-                                        <el-badge value="NEW" class="item">
+                                        <el-badge value="" class="item">
+                                            <el-button size="small">¥ {{skuInfo.price}}</el-button>
+                                        </el-badge>
+                                    </div>
+                                </div>
+                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='spell'">
+                                    <span>Price</span>
+                                    <div>
+                                        <el-badge value="Duo Deal" class="item">
                                             <el-button size="small">¥ {{skuInfo.price}}</el-button>
                                         </el-badge>
                                     </div>
@@ -81,13 +90,13 @@
                                         <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="skuInfo.currentTime" :startTime="skuInfo.currentTime" :endTime="Number(skuInfo.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
                                     </div>
                                 </div>
-                                <div class="spell" v-if="goodsInfo.type == 'spell'">
+                                <div class="spell" v-if="goodsInfo.type == 'spell' && goodsInfo.spellInfo.spellList.length > 0">
                                     <div>Group Buy List</div>
                                     <div class="row-item" v-for="(item,index) in goodsInfo.spellInfo.spellList" :key="index">                                        
                                         <span class="type"></span>
                                         <div class="spell-list">
                                             <div>
-                                                <img :src="item.headimg-url" alt="">
+                                                <img :src="item.headimg_url" alt="">
                                                 <i>{{item.nickname}}</i>
                                             </div>
                                             <div>
@@ -99,7 +108,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <button @click="scqrcode('join',item.orderNumber)">Join Duo Deals</button>
+                                                <button @click="scqrcode('join',item.orderNumber)">Join Now</button>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +167,7 @@
                                     <!-- <div id="qrcode" ref="qrcode"></div> -->
                                     <!-- <button @click="scqrcode">生成二维码</button> -->
 									<button @click="buyNow">Buy Now</button>
-									<button @click="scqrcode('buy',goodsInfo.id)">Go Duo Deals</button>
+									<button @click="scqrcode('buy',goodsInfo.id)">Start Duo Deal</button>
 								</div>
                                 <div v-else class="buy row-item" v-show="!groupBorder">
                                     <!-- <div id="qrcode" ref="qrcode"></div> -->
@@ -226,7 +235,7 @@
                                 <em>￥</em>{{item.reduce}}
                             </div>
                             <div class="right">
-                                <div class="title">test
+                                <div class="title">{{item.name}}
                                     <span v-if="item.isGet==0" @click="getCouponItem(item.couponId,index)">GET</span>
                                     <span class="Collected" v-if="item.isGet==1">Collected</span>
                                 </div>
@@ -954,8 +963,11 @@
                                             width: 50px
                                             height: 50px
                                             float: left
+                                            border-radius: 50%
+                                            margin-right: 10px
                                         i
                                             float: left
+                                            font-size: 16px
                                     >div:nth-child(2)
                                         width: 35%
                                         >div:nth-child(1)
@@ -969,6 +981,7 @@
                                             height: 16px
                                             color: #666
                                             line-height: 16px
+                                            text-align: center
                                     >div:nth-child(3)
                                         
                                         text-align: right
