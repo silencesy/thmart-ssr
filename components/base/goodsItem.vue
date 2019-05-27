@@ -6,6 +6,7 @@
                 <b class="hot">
                     <img class="group" style="width: 69px;height: auto;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
                     <img v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+					<img v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
                 </b>
                 <div :style="imgBox"><img :style="imgBox" v-lazy="item.pic" alt=""></div>
                 <p>{{item.title}}</p>

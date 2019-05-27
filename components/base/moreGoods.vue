@@ -3,9 +3,10 @@
     	<div class="moreTitle">Featured Products</div>
     	<div class="products">
 			<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" v-for="item in featuredGoods" :key="item.id" target="_blank">
-				<b class="hot" :class="{group: item.saleType.type=='group'}" v-if="item.saleType.type=='sale' || item.saleType.type=='group'">
+				<b class="hot" :class="{group: item.saleType.type=='group',spell: item.saleType.type=='spell'}" v-if="item.saleType.type=='sale' || item.saleType.type=='group' || item.saleType.type=='spell'">
                     <i v-if="item.saleType.type=='sale'">SALE</i>            
-                    <i class="group" v-if="item.saleType.type=='group'">GROUPBUY</i>            
+                    <i class="group" v-if="item.saleType.type=='group'">GROUPBUY</i>
+                    <i class="spell" v-if="item.saleType.type=='spell'">DUO DEAL</i>         
                 </b>
 				<div><img v-lazy="item.pic" alt=""></div>
 				<p>{{item.title}}</p>
@@ -71,7 +72,9 @@
                     padding-left: 10px
                     @include sc(14px, #999)
                 b.group
-                    @include whch(90px, 18px, center, 18px) 
+                    @include whch(90px, 18px, center, 18px)
+                b.spell
+                    @include whch(100px, 18px, center, 18px)
                 b 
                     position: absolute 
                     top: 20px
@@ -80,7 +83,7 @@
                     @include whch(38px, 18px, center, 18px) 
                     border-radius: $border_radius 
                     i 
-                        @include sc(12px, #fff) 
+                        @include sc(12px, #fff)
             a:last-child
                 border-bottom: none
     					

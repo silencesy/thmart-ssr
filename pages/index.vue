@@ -36,6 +36,7 @@
 					      <div class="swiper-slide" v-for="(item,index) in homeData.deal.data" :key="index">
 					        <img class="icon" style="width: 69px;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
         					<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+							<img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
 							<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" target="_blank">
 								<div class="dealSwiper">
 									<div><img v-lazy="item.pic" alt=""></div>

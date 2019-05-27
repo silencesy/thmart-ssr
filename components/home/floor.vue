@@ -12,6 +12,7 @@
                         <nuxt-link  :to="{name: 'goods-id', params: {id: item.id}}" target="_blank">
                             <img class="icon group" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
                             <img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+                            <img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
                             <div>
                                 <p>{{item.title}}</p>
                                 <span>￥{{item.price}}</span>
@@ -32,6 +33,7 @@
                     <nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" v-for="(item,index) in floorCenterFourPic" :key="index" target="_blank">
                         <img class="icon group" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
                         <img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+                        <img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
                         <p class="smallPic">
                             <img v-lazy="item.pic" alt="">
                         </p>
@@ -56,6 +58,7 @@
             <nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" v-for="(item,index) in floorBootomFourPic" :key="index" target="_blank">
                 <img class="icon group" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
                 <img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+                <img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
                 <p class="smallPic">
                     <img v-lazy="item.pic" alt="">
                 </p>
