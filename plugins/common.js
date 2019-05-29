@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import utils from '~/assets/js/utils'
+// 设置cookie
+import Cookie from 'js-cookie'
 Vue.use(Router)
 var commonJs= {
     install(Vue){
@@ -12,13 +14,23 @@ var commonJs= {
         	},
         	// 执行回跳地址
         	JumpBackToPage: function() {
-        		var address = localStorage.getItem('goback') ||  null;
-        		if (address) {
-        			window.location.href = address;
-        		} else {
-        			window.location.href = 'http://localhost:3000';
-        		}
-                localStorage.removeItem('goback')
+				var address = localStorage.getItem('goback') ||  null;
+				// if (address.indexOf('uf.thatsmags.com') != -1) {
+				// 	var token = Cookie.get('token');
+				// 	window.location.href = address + '?token=' + decodeURIComponent(decodeURIComponent(token));
+				// } else {
+					if (address) {
+						if (address.indexOf('uf.thatsmags.com') != -1) {
+							var token = Cookie.get('token');
+								window.location.href = address + '?token=' + decodeURIComponent(decodeURIComponent(token));
+						} else {
+							window.location.href = address;
+						}
+					} else {
+						window.location.href = 'http://localhost:3000';
+					}
+					localStorage.removeItem('goback')
+				// }
         	},
             // 判断是否登录
             isLogin: function () {

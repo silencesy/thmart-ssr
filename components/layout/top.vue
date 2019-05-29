@@ -117,20 +117,25 @@
             },
             // 去登陆页面
             login() {
-                this.user.SetComebackAddress();
+                let path = window.location.pathname + window.location.search;
                 // 登录成功关闭弹出框
                 this.$store.commit('LOGIN',false);  
-                this.$router.push({name: 'loginModule-login'});
+                this.$router.push({name: 'loginModule-login',query: {
+                    ref: path
+                }});
 
             },
             // 去注册页面
             signUp() {
-                this.user.SetComebackAddress();
-                this.$router.push({name: 'loginModule-signPhone'});
+                // this.user.SetComebackAddress();
+                let path = window.location.pathname + window.location.search;
+                this.$router.push({name: 'loginModule-signPhone',query: {
+                    ref: path
+                }});
             },
             // 下线
             logout() {
-                this.user.SetComebackAddress();
+                // this.user.SetComebackAddress();
                 // 下线
                 Cookie.remove('token');
                 this.$store.commit('SET_USER','');
@@ -142,11 +147,13 @@
             },
             // 去重置密码页面
             resetPassword () {
-                this.user.SetComebackAddress();
+                // this.user.SetComebackAddress();
+                let path = window.location.pathname + window.location.search;
                 // 登录成功关闭弹出框
                 this.$store.commit('LOGIN',false);  
-                this.$router.push({name: 'loginModule-passwordPhone'});
-                
+                this.$router.push({name: 'loginModule-passwordPhone',query: {
+                    ref: path
+                }});
             },
             // 密码登录
             loginPassword() {

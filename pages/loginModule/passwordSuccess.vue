@@ -4,7 +4,7 @@
 		<div class="pW">
 			<div>
 				<i class="iconfont icon-chenggongcopy-"></i>
-				<p>Password Reset Success.<nuxt-link :to="{name: 'loginModule-login'}">You may log in!</nuxt-link></p>
+				<p>Password Reset Success.<a @click="login">You may log in!</a></p>
 			</div>
 		</div>
 	</div>
@@ -29,7 +29,12 @@
 		    
 	  	},
 		methods: {
-
+			login() {
+				let path = window.localStorage.getItem('goback');
+				this.$router.push({name: 'loginModule-login',query: {
+                    ref: path
+                }})
+			}
 		}
 	}
 </script>
@@ -49,5 +54,6 @@
 				margin-top: 20px
 				a 
 					color: $theme_color
+					cursor: pointer
 
 </style>

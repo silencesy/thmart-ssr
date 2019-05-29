@@ -82,9 +82,17 @@
 				// },
 	    	setGoBackUrl() {
 	    		if (this.$route.query.ref) {
-	    			var goBackAddr = window.location.origin + this.$route.query.ref;
-	    			localStorage.setItem('goback',goBackAddr);
-	    		}
+						if(this.$route.query.ref.indexOf('uf.thatsmags.com') != -1) {
+							var goBackAddr = this.$route.query.ref;
+	    				localStorage.setItem('goback',goBackAddr);
+						} else {
+							var goBackAddr = window.location.origin + this.$route.query.ref;
+	    				localStorage.setItem('goback',goBackAddr);
+						}
+	    			
+	    		} else {
+						localStorage.removeItem('goback');
+					}
 	    	},
 	      	handleClick(tab, event) {
 	      	  	console.log(tab, event);
@@ -183,9 +191,16 @@
 				})
 			},
 			wechatLogin() {
-				var goback = window.location.origin + '/weChatLogin/login' + "|" + window.location.origin + '/loginModule/signPhoneWx'+ '|pc';
-				window.location.href="https://open.weixin.qq.com/connect/qrconnect?appid=wxf62ca307a8f76a6e&redirect_uri=http%3A%2F%2Fapi.mall.thatsmags.com%2FthmartApi%2FUser%2FWx%2Flogin&response_type=code&scope=snsapi_login&state=" + goback;
-			}
+				let path = window.localStorage.getItem('goback');
+				if(path.indexOf('uf.thatsmags.com') != -1) {
+					var goback = path + "|" + window.location.origin + '/loginModule/signPhoneWx'+ '|pc';
+					window.location.href="https://open.weixin.qq.com/connect/qrconnect?appid=wxf62ca307a8f76a6e&redirect_uri=http%3A%2F%2Fapi.mall.thatsmags.com%2FthmartApi%2FUser%2FWx%2Flogin&response_type=code&scope=snsapi_login&state=" + goback;
+				} else {
+						var goback = window.location.origin + '/weChatLogin/login' + "|" + window.location.origin + '/loginModule/signPhoneWx'+ '|pc';
+					window.location.href="https://open.weixin.qq.com/connect/qrconnect?appid=wxf62ca307a8f76a6e&redirect_uri=http%3A%2F%2Fapi.mall.thatsmags.com%2FthmartApi%2FUser%2FWx%2Flogin&response_type=code&scope=snsapi_login&state=" + goback;
+					}
+				
+				}
 	    }
 	}
 </script>

@@ -35,13 +35,18 @@
 			sendCode
 		},
 		mounted() {
-			
-			
+			this.setGoBackUrl();
 		},
 	  	computed: {  
 		    
 	  	},
 		methods: {
+			setGoBackUrl() {
+	    		if (this.$route.query.ref) {
+	    			var goBackAddr = this.$route.query.ref;
+	    			localStorage.setItem('goback',goBackAddr);
+	    		}
+	    	},
 			// 改变电话号码
 			changePhoneNumber(number) {
 				this.phoneNumber=number

@@ -4,13 +4,14 @@
 		<div class="sign">
 			<div>
 				<i class="iconfont icon-chenggongcopy-"></i>
-				<p>Registration Success.<nuxt-link to="/">You may start shopping!</nuxt-link></p>
+				<p>Registration Success.<a @click="goBackPage">You may start shopping!</a></p>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
 	import signStep from '~/components/layout/signStep'
+	
 	export default {
 		layout: 'signHome',
 		data() {
@@ -29,7 +30,10 @@
 		    
 	  	},
 		methods: {
-
+			goBackPage() {
+				let path = window.localStorage.getItem('goBack');
+				this.user.JumpBackToPage();
+			}
 		}
 	}
 </script>
@@ -49,5 +53,6 @@
 				margin-top: 20px
 				a 
 					color: $theme_color
+					cursor: pointer
 
 </style>
