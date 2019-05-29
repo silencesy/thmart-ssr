@@ -21,8 +21,14 @@ var commonJs= {
 				// } else {
 					if (address) {
 						if (address.indexOf('uf.thatsmags.com') != -1) {
-							var token = Cookie.get('token');
+							if (address.indexOf('?') != -1) {
+								var token = Cookie.get('token');
+								window.location.href = address + '&token=' + decodeURIComponent(decodeURIComponent(token));
+							} else {
+								var token = Cookie.get('token');
 								window.location.href = address + '?token=' + decodeURIComponent(decodeURIComponent(token));
+							}
+							
 						} else {
 							window.location.href = address;
 						}
