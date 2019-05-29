@@ -96,7 +96,7 @@
 					<nuxt-link to="/article/articleList">More<i class="iconfont icon-combinedshapefuben"></i></nuxt-link> -->
 				</div>
 				<div class="articlePer">
-					<nuxt-link v-for="(item,index) in homeData.exploreChina.data" :key="index" v-if="index<6" :to="{name: 'goods-id',params: {id: item.id}}">
+					<nuxt-link v-for="(item,index) in homeData.exploreChina.data" :key="index" v-if="index<9" :to="{name: 'goods-id',params: {id: item.id}}">
 						<p><img v-lazy="item.pic" alt=""></p> 
 						<div class="per">
 							<p>{{item.title}}</p>
@@ -319,21 +319,14 @@
 						@include sc(16px, #999)
 						display: inline-block 
 						margin-top: 35px
-			a:first-child 
+			a:nth-child(3n)
+				padding-right: 0 
+				border-right: 0
+			a:nth-child(3n-2)
 				padding-left: 0
 				padding-right: 15px
-			a:nth-child(3) 
-				padding-right: 0 
-				border-right: 0
-			a:nth-child(4) 
-				border-bottom: 0 
-				padding-left: 0
-			a:nth-child(5) 
-				border-bottom: 0 
-			a:nth-child(6) 
-				padding-right: 0 
-				border-right: 0
-				border-bottom: 0 
+			a:nth-last-child(-n+3)
+				border-bottom: 0
 	.homeSection
 		overflow: hidden
 		margin-top: 15px
