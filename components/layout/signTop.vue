@@ -4,6 +4,7 @@
             <div class="homeHead">
                 <div class="left">
                     <img @click="goHome" src="~static/images/thmart.png" alt="">
+                    <img class="uf-logo" @click="goUfHome" src="~static/images/uflogo.png" alt="">
                     <span class="loginName">SIGN UP</span>
                 </div>
                 <div class="right"><img src="~static/images/thmartCode.jpg" alt=""></div>
@@ -24,6 +25,9 @@
                 let url = window.location.origin;
                 window.location.href = url;
             },
+            goUfHome() {
+                window.location.href = 'http://uf.thatsmags.com/';
+            }
         }
     }
 </script>
@@ -42,6 +46,10 @@
             img
                 cursor: pointer
                 @include wh(80px, 60px)
+                margin-right: 15px
+            img.uf-logo
+                cursor: pointer
+                @include wh(auto, 60px)
                 margin-right: 15px
             .loginName 
                 float: right

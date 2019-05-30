@@ -36,6 +36,13 @@ export default function({ route, req, params, query, redirect }) {
             case 'category-item':
                 redirect(baseUrl + 'Categories?id=' + query.one + '&childid=' + query.two);
                 break;
+            case 'loginModule-login':
+                if (route.query.ref.indexOf('uf.thatsmags.com/') != -1) {
+                    redirect(baseUrl + '/Login?ref=' + route.query.ref);
+                } else {
+                    redirect(baseUrl + '/Login');
+                }
+                break;
                 // 其他
             default:
                 redirect(baseUrl);

@@ -33,7 +33,7 @@ var commonJs= {
 							window.location.href = address;
 						}
 					} else {
-						window.location.href = 'http://localhost:3000';
+						window.location.href = window.location.origin;
 					}
 					localStorage.removeItem('goback')
 				// }
