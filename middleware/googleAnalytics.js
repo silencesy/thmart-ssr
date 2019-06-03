@@ -1,5 +1,5 @@
 /**
- * 作用：当用户分享pc地址给用户，用户用移动端打开连接跳转移动端对应的页面
+ * 作用：google分析
  */
 
 export default function(context) {
