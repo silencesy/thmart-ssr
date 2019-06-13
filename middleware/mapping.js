@@ -3,11 +3,11 @@
  */
 
 export default function({ route, req, params, query, redirect }) {
-    const userAgent = process.server ? req.headers['user-agent'] : navigator.userAgent;
+    const userAgent = process.server ? req.headers['user-agent'].toLowerCase() : navigator.userAgent.toLowerCase();
     const routeName = route.name;
     const baseUrl = 'http://mob.thmart.com.cn/'
         // mobile
-    if (userAgent.indexOf("Android") != -1 || userAgent.indexOf("iPhone") != -1 || userAgent.indexOf("iPad") != -1) {
+    if (userAgent.indexOf("android") != -1 || userAgent.indexOf("iphone") != -1 || userAgent.indexOf("ipad") != -1 || userAgent.indexOf("ipod") != -1) {
         switch (routeName) {
             // 首页
             case 'index':
@@ -31,6 +31,10 @@ export default function({ route, req, params, query, redirect }) {
                 // 商品详情页
             case 'goods-id':
                 redirect(baseUrl + 'GoodsDetails?id=' + params.id);
+                break;
+                // 热销商品
+            case 'deals-id':
+                redirect(baseUrl + 'GoodsList?id=17');
                 break;
                 // 分类页
             case 'category-item':
