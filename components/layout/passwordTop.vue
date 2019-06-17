@@ -44,7 +44,7 @@
                 vertical-align: middle
         .left
             img
-                @include wh(80px, 60px)
+                @include wh(142px, 60px)
                 margin-right: 15px
                 cursor: pointer
             img.uf-logo

@@ -10,30 +10,38 @@
 					<nuxt-link to="/deals/1">
 						<div class="deal-logo" :style="{backgroundImage:'url(' + homeData.deal.pic + ')'}"></div>
 					</nuxt-link>
-					<!-- <div class="deal-swiper">
-					    <swiper v-swiper:mySwiper="swiperOption">
-					      	<swiper-slide class="swiper-slide" v-for="(item,index) in homeData.ticketing.data" :key="index">
-					      		<img class="icon" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
-            					<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
-								<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}">
-									<div class="dealSwiper">
-										<div><img v-lazy="item.pic" alt=""></div>
-										<div class="dealTxt">
-											<p>{{item.title}}</p>
-											<div>
-												<span>¥{{item.price}}</span>
-												<del v-if="item.originalPrice">¥{{item.originalPrice}}</del>
-											</div>
-										</div>
-									</div>
-								</nuxt-link>
-					      	</swiper-slide>
-					    </swiper>
-						<div class="swiper-pagination swiper-pagination-bullets"></div>
-					</div> -->
 					<div v-swiper:mySwiper="swiperOption" style="overflow: hidden;">
 					    <div class="swiper-wrapper" >
 					      <div class="swiper-slide" v-for="(item,index) in homeData.deal.data" :key="index">
+					        <img class="icon" style="width: 69px;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
+        					<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+							<img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
+							<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" target="_blank">
+								<div class="dealSwiper">
+									<div><img v-lazy="item.pic" alt=""></div>
+									<div class="dealTxt">
+										<p>{{item.title}}</p>
+										<div>
+											<span>¥{{item.price}}</span>
+											<del v-if="item.originalPrice">¥{{item.originalPrice}}</del>
+										</div>
+									</div>
+								</div>
+							</nuxt-link>
+					      </div>
+					    </div>
+					    <div class="swiper-button-next"></div>
+					    <div class="swiper-button-prev"></div>
+				  	</div>
+				</div>
+			</div>
+			<!-- 拼单 -->
+			<div class="deal spell">
+				<div class="container">
+					<div class="deal-logo" :style="{backgroundImage:'url(' + homeData.pditem.pic + ')'}"></div>
+					<div v-swiper:mySwiper2="swiperOption" style="overflow: hidden;">
+					    <div class="swiper-wrapper" >
+					      <div class="swiper-slide" v-for="(item,index) in homeData.pditem.data" :key="index">
 					        <img class="icon" style="width: 69px;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
         					<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
 							<img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
@@ -151,7 +159,7 @@
 			        	el: '.swiper-pagination',
             			dynamicBullets: true
 			   	  	}
-			    },
+				},
 				// 上拉加载数据
 				hotData: [],
 				hotGoodsPara: {
@@ -180,7 +188,7 @@
 		 	const categoryList = await app.$axios.post(interfaceApi.categoryList,{fname: 0})
 		 	store.commit('SET_CATEGORYLIST',categoryList.data.data);
 		 	store.commit('SET_TOPBANNER',homeData.data.data.topBanner);
-  			return { homeData: homeData.data.data}
+  			return { homeData: homeData.data.data }
 		},
 		components: {
 			SwiperComponent,
@@ -233,263 +241,267 @@
 	// 123123123
 </script>
 <style lang='sass' scoped>
-	@import '~/assets/sass/common.sass'
-	.deal
-		padding: 15px 0
-		background-color: #eee
-		.container
-			height: 274px
+@import '~/assets/sass/common.sass'
+.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled
+	pointer-events: auto
+.deal
+	padding: 15px 0
+	background-color: #eee
+	.container
+		height: 274px
+		background-color: #fff
+		.deal-logo
+			float: left
+			@include wh(240px,274px)
+		.deal-swiper
+			float: left
+			overflow: hidden
+			@include wh(960px,274px)
 			background-color: #fff
-			.deal-logo
-				float: left
-				@include wh(240px,274px)
-			.deal-swiper
-				float: left
-				overflow: hidden
-				@include wh(960px,274px)
-				background-color: #fff
-				position: relative
-				.slide-item
-					@include wh(100%,100%)
-
-	.homeAd
-		img 
+			position: relative
+			.slide-item
+				@include wh(100%,100%)
+.deal.spell
+	padding-bottom: 15px
+	padding-top: 0
+.homeAd
+	img 
+		width: 100%
+		margin-top: 15px 
+.editor 
+	// padding: 0 15px 
+	border: $border 
+	margin-top: 15px
+	.title 
+		border-bottom: $border
+		overflow: hidden
+		@include hh(116px, 116px)
+		img
+			float: left
 			width: 100%
-			margin-top: 15px 
-	.editor 
-		// padding: 0 15px 
-		border: $border 
-		margin-top: 15px
+			height: auto
+			vertical-align: middle
+			// margin-top: 3px
+		a 
+			float: right
+			vertical-align: middle
+			.icon-combinedshapefuben 
+				padding-left: 5px
+	.articlePer  
+		overflow: hidden
+		padding: 0 15px
+		.more
+			width: 380px
+			height: 132px
+			line-height: 132px
+			text-align: center
+			p
+				width: 369px
+				height: 102px
+				line-height: 102px
+				text-align: center
+				font-size: 18px
+				color: #222
+		a
+			float: left
+			display: inline-block
+			overflow: hidden
+			padding: 15px
+			border-right: $border 
+			border-bottom: $border
+			>p 					
+				float: left
+				@include wh(100px, 100px)
+				margin-right: 15px
+				img 
+					@include wh(100px, 100px)
+			.per 
+				float: left
+				width: 253px
+				p 
+					overflow: hidden 
+					text-overflow: ellipsis 
+					display: -webkit-box 
+					-webkit-box-orient: vertical
+					-webkit-line-clamp: 2 
+					line-height: 22px 
+					height: 44px
+					
+				span 
+					@include sc(16px, #999)
+					display: inline-block 
+					margin-top: 35px
+		a:nth-child(3n)
+			padding-right: 0 
+			border-right: 0
+		a:nth-child(3n-2)
+			padding-left: 0
+			padding-right: 15px
+		a:nth-last-child(-n+3)
+			border-bottom: 0
+.homeSection
+	overflow: hidden
+	margin-top: 15px
+	overflow: hidden
+	.hotShops	
+		float: left	
+		width: 590px 
+		height: 510px
+		border: $border	
+		padding: 0 15px 15px 15px 
+		margin-right: 20px
+		a 
+			cursor: pointer
 		.title 
 			border-bottom: $border
 			overflow: hidden
-			@include hh(116px, 116px)
+			@include hh(60px, 60px)
 			img
 				float: left
-				width: 100%
-				height: auto
 				vertical-align: middle
-				// margin-top: 3px
+				margin-top: 14px
 			a 
 				float: right
 				vertical-align: middle
 				.icon-combinedshapefuben 
 					padding-left: 5px
-		.articlePer  
-			overflow: hidden
-			padding: 0 15px
-			.more
-				width: 380px
-				height: 132px
-				line-height: 132px
-				text-align: center
-				p
-					width: 369px
-					height: 102px
-					line-height: 102px
-					text-align: center
-					font-size: 18px
-					color: #222
+		.pic 
+			width: 558px 
+			padding-top: 15px
 			a
-				float: left
+				margin-right: 7px
+				margin-bottom: 7px
 				display: inline-block
-				overflow: hidden
-				padding: 15px
-				border-right: $border 
-				border-bottom: $border
-				>p 					
-					float: left
-					@include wh(100px, 100px)
-					margin-right: 15px
-					img 
-						@include wh(100px, 100px)
-				.per 
-					float: left
-					width: 253px
-					p 
-						overflow: hidden 
-						text-overflow: ellipsis 
-						display: -webkit-box 
-						-webkit-box-orient: vertical
-						-webkit-line-clamp: 2 
-						line-height: 22px 
-						height: 44px
-						
-					span 
-						@include sc(16px, #999)
-						display: inline-block 
-						margin-top: 35px
-			a:nth-child(3n)
-				padding-right: 0 
-				border-right: 0
-			a:nth-child(3n-2)
-				padding-left: 0
-				padding-right: 15px
-			a:nth-last-child(-n+3)
-				border-bottom: 0
-	.homeSection
-		overflow: hidden
-		margin-top: 15px
-		overflow: hidden
-		.hotShops	
-			float: left	
-			width: 590px 
-			height: 510px
-			border: $border	
-			padding: 0 15px 15px 15px 
-			margin-right: 20px
-			a 
-				cursor: pointer
-			.title 
-				border-bottom: $border
-				overflow: hidden
-				@include hh(60px, 60px)
-				img
-					float: left
-					vertical-align: middle
-					margin-top: 14px
-				a 
-					float: right
-					vertical-align: middle
-					.icon-combinedshapefuben 
-						padding-left: 5px
-			.pic 
-				width: 558px 
-				padding-top: 15px
-				a
-					margin-right: 7px
-					margin-bottom: 7px
-					display: inline-block
-					@include wh(134px, 134px)
-					img 	
-						width: 134px 
-						height: 134px
-				a:nth-child(4)
-					margin-right: 0
-				a:nth-child(8)
-					margin-right: 0
-				a:nth-child(12)
-					margin-right: 0 
-		.groupBuy
-			float: left		
-			width: 590px 
-			height: 510px
-			border: $border	
-			padding: 0 15px 15px 15px 
-			.title 
-				border-bottom: $border
-				overflow: hidden
-				@include hh(60px, 60px)
-				img
-					float: left
-					vertical-align: middle
-					margin-top: 15px
-				a 
-					float: right
-					vertical-align: middle
-					.icon-combinedshapefuben 
-						padding-left: 5px 
-			.goods 
-				overflow: hidden
+				@include wh(134px, 134px)
+				img 	
+					width: 134px 
+					height: 134px
+			a:nth-child(4)
+				margin-right: 0
+			a:nth-child(8)
+				margin-right: 0
+			a:nth-child(12)
+				margin-right: 0 
+	.groupBuy
+		float: left		
+		width: 590px 
+		height: 510px
+		border: $border	
+		padding: 0 15px 15px 15px 
+		.title 
+			border-bottom: $border
+			overflow: hidden
+			@include hh(60px, 60px)
+			img
+				float: left
+				vertical-align: middle
 				margin-top: 15px
-				a 
-					float: left
-					width: 134px
-					min-height: 205px
-					position: relative
-					margin-right: 7px
-					margin-bottom: 12px
-					div
+			a 
+				float: right
+				vertical-align: middle
+				.icon-combinedshapefuben 
+					padding-left: 5px 
+		.goods 
+			overflow: hidden
+			margin-top: 15px
+			a 
+				float: left
+				width: 134px
+				min-height: 205px
+				position: relative
+				margin-right: 7px
+				margin-bottom: 12px
+				div
+					@include wh(134px, 134px)
+					img
 						@include wh(134px, 134px)
-						img
-							@include wh(134px, 134px)
-					p 
-						overflow: hidden
-						text-overflow: ellipsis 
-						display: -webkit-box 
-						-webkit-box-orient: vertical 
-						-webkit-line-clamp: 2
-						line-height: 22px 
-						height: 44px 
-						margin-top: 4px
-						margin-bottom: 5px
-						text-align: center
-						padding: 0 5px
-					span 
-						color: $theme_color 
+				p 
+					overflow: hidden
+					text-overflow: ellipsis 
+					display: -webkit-box 
+					-webkit-box-orient: vertical 
+					-webkit-line-clamp: 2
+					line-height: 22px 
+					height: 44px 
+					margin-top: 4px
+					margin-bottom: 5px
+					text-align: center
+					padding: 0 5px
+				span 
+					color: $theme_color 
+				del 
+					@include sc(14px, #999)
+					position: absolute 
+					bottom: 0 
+					right: 8px 
+				b
+					position: absolute
+					top: 5px
+					left: 5px
+					@include whch(38px, 18px, center, 18px)
+					border-radius: $border_radius 
+					img
+						@include wh(36px, 18px)
+					img.group
+						@include wh(69px, 18px)
+			a:nth-child(4) 
+				margin-right: 0 
+			a:nth-child(8) 
+				margin-right: 0		
+.swiper-slide
+	@include wh(192px, 274px)
+	border-right: $border
+	.icon
+		position: absolute
+		top: 5px
+		left: 5px
+		width: 36px
+		height: 18px
+		z-index: 1000
+	a
+		display: block
+		@include wh(100%, 100%)
+		.dealSwiper
+			padding: 0 7px
+			position: relative
+			
+			>div:first-child
+				@include wh(176px,176px)
+				margin-bottom: 10px 
+				img 
+					@include wh(100%, 100%)
+			.dealTxt
+				p
+					overflow: hidden
+					text-overflow: ellipsis
+					display: -webkit-box
+					-webkit-box-orient: vertical
+					-webkit-line-clamp: 2
+					height: 44px
+					line-height: 22px
+					text-align: center
+				>div 
+					overflow: hidden
+					padding: 10px 5px 0
+					text-align: center
+					>span 
+						color: #f9421e
 					del 
 						@include sc(14px, #999)
-						position: absolute 
-						bottom: 0 
-						right: 8px 
-					b
-	                    position: absolute
-	                    top: 5px
-	                    left: 5px
-	                    @include whch(38px, 18px, center, 18px)
-	                    border-radius: $border_radius 
-	                    img
-	                        @include wh(36px, 18px)
-	                    img.group
-	                    	@include wh(69px, 18px)
-				a:nth-child(4) 
-					margin-right: 0 
-				a:nth-child(8) 
-					margin-right: 0		
-	.swiper-slide
-		@include wh(192px, 274px)
-		border-right: $border
-		.icon
-			position: absolute
-			top: 5px
-			left: 5px
-			width: 36px
-			height: 18px
-			z-index: 1000
-		a
-			display: block
-			@include wh(100%, 100%)
-			.dealSwiper
-				padding: 0 7px
-				position: relative
-				
-				>div:first-child
-					@include wh(176px,176px)
-					margin-bottom: 10px 
-					img 
-						@include wh(100%, 100%)
-				.dealTxt
-					p
-						overflow: hidden
-						text-overflow: ellipsis
-						display: -webkit-box
-						-webkit-box-orient: vertical
-						-webkit-line-clamp: 2
-						height: 44px
-						line-height: 22px
-						text-align: center
-					>div 
-						overflow: hidden
-						padding: 10px 5px 0
-						text-align: center
-						>span 
-							color: #f9421e
-						del 
-							@include sc(14px, #999)
-							padding-left: 10px
-	.swiper-button-next
-		background-image: url("~/static/images/ar.png")
-	.swiper-button-prev
-		background-image: url("~/static/images/al.png")
-	.swiper-button-next, .swiper-button-prev
-		background-color: rgba(31, 45, 61, .25)
-		@include wh(40px, 40px)
-		background-size: auto
-		top: 44%
-	.swiper-button-next:active, .swiper-button-prev:active
-		outline: none
-	.swiper-button-next:focus, .swiper-button-prev:focus
-		outline: none
-	.swiper-button-next:hover, .swiper-button-prev:hover
-		background-color: rgba(31, 45, 61, .45)
+						padding-left: 10px
+.swiper-button-next
+	background-image: url("~/static/images/ar.png")
+.swiper-button-prev
+	background-image: url("~/static/images/al.png")
+.swiper-button-next, .swiper-button-prev
+	background-color: rgba(31, 45, 61, .25)
+	@include wh(40px, 40px)
+	background-size: auto
+	top: 44%
+.swiper-button-next:active, .swiper-button-prev:active
+	outline: none
+.swiper-button-next:focus, .swiper-button-prev:focus
+	outline: none
+.swiper-button-next:hover, .swiper-button-prev:hover
+	background-color: rgba(31, 45, 61, .45)
 </style>

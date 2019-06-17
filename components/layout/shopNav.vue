@@ -139,7 +139,7 @@
         .left
             img
                 cursor: pointer
-                @include wh(95px, 60px)
+                @include wh(142px, 60px)
                 padding-right: 15px
                 border-right: $border
             .shopName 

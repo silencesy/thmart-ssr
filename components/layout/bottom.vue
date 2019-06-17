@@ -63,11 +63,11 @@ export default {
                 padding-bottom: 10px
             li
                 float: left
-                margin-right: 141px;
+                margin-right: 120px;
             li:first-child
                 img 
                     cursor: pointer
-                    @include wh(60px, 45px)
+                    @include wh(107px, 45px)
             li:last-child
                 margin-right: 0       
             img 

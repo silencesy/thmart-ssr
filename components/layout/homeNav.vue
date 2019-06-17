@@ -142,7 +142,7 @@
     .left
         img
             cursor: pointer
-            @include wh(80px, 60px)
+            @include wh(142px, 60px)
     .right
         float: right
         img

@@ -221,7 +221,7 @@
 				</div> -->
 				<div class="layer">
 					<el-dialog title="Address" :visible.sync="showlayer">
-						<div class="addInfo">
+						<div class="addInfo" :class="{minHeight: orderData.isaddress == 2}">
 							<div class="box">
 								<div class="boxFrom">
 									<div>
@@ -236,15 +236,15 @@
 										<label><i>*</i> Email :</label>
 										<input type="text" v-model="addressInfo.email">
 									</div>
-									<div>
+									<div v-if="orderData.isaddress == 1">
 										<label><i>*</i> Address :</label>
 										<!-- <citySelect :provinceProps="addressInfo.province" :cityProps="addressInfo.city"  @changeProvince="changeProvince" @changeCity="changeCity"/> -->
 										<textarea style="margin-left: 0;" v-model="addressInfo.province" id="detailAddress" placeholder="* Please write down your detailed address in Chinese"></textarea>
 									</div>
-									<div>
+									<div v-if="orderData.isaddress == 1">
 										 <textarea v-model="addressInfo.regionDetail" id="detailAddress" placeholder="Please write down your detailed address in English"></textarea>
 									</div>
-									<div class="setDefault noselect" @click="setDefault">
+									<div v-if="orderData.isaddress == 1" class="setDefault noselect" @click="setDefault">
 										<label v-if="addressInfo.isDefault==0"><i class="iconfont icon-weixuanzhong"></i>Default</label>
 
 										<label v-if="addressInfo.isDefault==1" class="default"><i class="iconfont icon-xuanzhong1"></i>Default</label>
@@ -415,6 +415,9 @@
 			// 保存地址
 			saveAddress() {
 				var that = this;
+				if(that.orderData.isaddress == 2) {
+					that.addressInfo.province = 'N/A';
+				}
 				if (!v.required(that.addressInfo.fullName)) {
 					that.$message({
 			          message: 'Please enter your name!',
@@ -430,7 +433,7 @@
 			          message: 'Please enter a valid email address!',
 			          type: 'warning'
 			        });
-				} else if(!v.required(that.addressInfo.province)) {
+				} else if(!v.required(that.addressInfo.province && that.orderData.isaddress == 1)) {
 					that.$message({
 			          message: 'Please write down your address!',
 			          type: 'warning'
@@ -511,325 +514,326 @@
 </script>
 
 <style lang='sass' scoped>
-	@import '~/assets/sass/common.sass'
-	.orderConfirm
-		.container
-			.confirmBox
-				.confirmAddress
-					border: $border
-					padding: 15px
-					.info
-						text-align: center
-						padding: 10px
-						margin-top: 30px
-					.addAddress
-					    width: 100px
-					    height: 26px
-					    text-align: center
-					    line-height: 26px
-					    font-size: 14px
-					    color: #fff
-					    background-color: #F9421E
-					    border-radius: 4px
-					    margin: 0 auto 15px auto
-					    cursor: pointer
-					.title 
-						overflow: hidden 
-						padding-bottom: 10px 
-						margin-bottom: 15px
-						border-bottom: $border
-						span 
-							float: left
-							font-size: 18px
-							padding-top: 3px
-						button 
-							float: right
-							@include whch(100px, 26px, center, 26px)
-							@include sc(14px, #fff)
-							background-color: #F9421E
-							border-radius: $border_radius
-					.address 
+@import '~/assets/sass/common.sass'
+.orderConfirm
+	.container
+		.confirmBox
+			.confirmAddress
+				border: $border
+				padding: 15px
+				.info
+					text-align: center
+					padding: 10px
+					margin-top: 30px
+				.addAddress
+					width: 100px
+					height: 26px
+					text-align: center
+					line-height: 26px
+					font-size: 14px
+					color: #fff
+					background-color: #F9421E
+					border-radius: 4px
+					margin: 0 auto 15px auto
+					cursor: pointer
+				.title 
+					overflow: hidden 
+					padding-bottom: 10px 
+					margin-bottom: 15px
+					border-bottom: $border
+					span 
+						float: left
+						font-size: 18px
+						padding-top: 3px
+					button 
+						float: right
+						@include whch(100px, 26px, center, 26px)
+						@include sc(14px, #fff)
+						background-color: #F9421E
+						border-radius: $border_radius
+				.address 
+					overflow: hidden
+					height: 155px
+					.box 
+						border: $border
+						border-radius: $border_radius
+						@include wh(280px, 155px)
+						float: left
+						padding: 15px
+						margin-right: 16px
+						margin-bottom: 16px
+						cursor: pointer
 						overflow: hidden
-						height: 155px
-						.box 
-							border: $border
-							border-radius: $border_radius
-							@include wh(280px, 155px)
-							float: left
-							padding: 15px
-							margin-right: 16px
-							margin-bottom: 16px
+						p 
+							@include sc(14px, #666)
+							margin-bottom: 10px
+						p.addressP
+							overflow: hidden
+							text-overflow: ellipsis
+							display: -webkit-box
+							-webkit-box-orient: vertical
+							-webkit-line-clamp: 1
+							height: 20px
+						>div 
+							overflow: hidden
+							.icon-bianji
+								padding-right: 5px
+							span:nth-child(2) 
+								float: right
+								font-size: 14px
+							span.active
+								float: right
+								@include sc(14px, $theme_color)							
+					.box:nth-child(4n)
+						margin-right: 0
+					.box.defaultBox
+						border: 1px solid $theme_color
+				.address.show
+					height: auto
+				.more 
+					width: 100%
+					text-align: center
+					padding-top: 15px 
+					cursor: pointer
+					@include sc(14px, #666)
+				.more:hover, .more:active 
+					color: $theme_color
+			.confirmGoods
+				margin-top: 20px
+				border: $border
+				padding: 15px 
+				.title 
+					border-bottom: $border 
+					padding-bottom: 10px
+					font-size: 18px
+					margin-bottom: 15px
+				.goodsBox 
+					.shopPer
+						border: $border
+						padding: 0 15px 15px 15px
+						margin-bottom: 20px
+						.title 
+							padding-top: 15px
+							padding-bottom: 10px
+							border-bottom: $border
 							cursor: pointer
 							overflow: hidden
-							p 
-								@include sc(14px, #666)
-								margin-bottom: 10px
-							p.addressP
-								overflow: hidden
-								text-overflow: ellipsis
-								display: -webkit-box
-								-webkit-box-orient: vertical
-								-webkit-line-clamp: 1
-								height: 20px
-							>div 
-								overflow: hidden
-								.icon-bianji
-									padding-right: 5px
-								span:nth-child(2) 
-									float: right
-									font-size: 14px
-								span.active
-									float: right
-									@include sc(14px, $theme_color)							
-						.box:nth-child(4n)
-							margin-right: 0
-						.box.defaultBox
-							border: 1px solid $theme_color
-					.address.show
-						height: auto
-					.more 
-						width: 100%
-						text-align: center
-						padding-top: 15px 
-						cursor: pointer
-						@include sc(14px, #666)
-					.more:hover, .more:active 
-						color: $theme_color
-				.confirmGoods
-					margin-top: 20px
-					border: $border
-					padding: 15px 
-					.title 
-						border-bottom: $border 
-						padding-bottom: 10px
-						font-size: 18px
-						margin-bottom: 15px
-					.goodsBox 
-						.shopPer
-							border: $border
-							padding: 0 15px 15px 15px
-							margin-bottom: 20px
-							.title 
-								padding-top: 15px
-								padding-bottom: 10px
-								border-bottom: $border
-								cursor: pointer
-								overflow: hidden
-								div:first-child
-									float: left
-									span 
-										font-size: 16px
-									.icon-weixuanzhong 
-										font-size: 21px
-										padding-left: 7px
-										padding-right: 15px
-										vertical-align: middle
-									.icon--dianpu
-										padding-right: 10px
-										font-size: 21px
-								div:nth-child(2)
-									float: right
-							.titleList
-								padding: 15px 0
-								border-bottom: $border
-								span
-									display: inline-block
-									@include wc(227px, center)
-								span:first-child
-									width: 450px
-							.goodsInfo
-								.details
-									overflow: hidden
-									padding: 15px 0
-									border-bottom: $border
-									>div 
-										float: left
-									.goods
-										overflow: hidden
-										width: 450px
-										padding-right: 15px
-										cursor: pointer
-										>div
-											float: left
-										div
-										    img 
-										    	@include wh(100px, 100px)
-										    	margin-right: 15px
-										div:nth-child(2)
-											width: 310px
-											p 
-												overflow: hidden
-												text-overflow: ellipsis
-												display: -webkit-box
-												-webkit-box-orient: vertical
-												-webkit-line-clamp: 2
-												line-height: 22px
-												height: 44px
-											.color									
-												@include sc(14px, #666)
-												padding: 15px 0 5px 0
-												display: block
-											.fullCut
-												@include sc(14px, $theme_color)
-											span
-												i
-													margin-right: 10px
-									.price, .subtotal, .quantity
-										width: 227px
-										height: 104px
-										text-align: center
-										position: relative
-										>div 
-											@include center
-									.price, .subtotal
-										>div
-											span, del 
-												display: block
-												margin-bottom: 10px
-											span 
-												color: $theme_color
-											del 
-												color: #666
-								.details:last-child
-									border-bottom: none
-
-									padding-bottom: 0
-								.quantity-discount
-									@include hh(50px, 50px)
-									span:nth-child(2)
-										float: right
-										color: $theme_color
-								.quantity-discount:nth-child(3)
-									border-top: 1px solid #dfdfdf
-
-					.payItem
-						overflow: hidden
-						border-top: $border 
-						border-bottom: $border
-						.left, .right 
-							float: left
-							width: 50%
-						.left 
-							border-right: $border
-							>div 
-								padding: 15px 0
-								overflow: hidden
-								span, textarea 
-									float: left
+							div:first-child
+								float: left
 								span 
-									width: 75px 
-									color: #666
-								textarea
-									@include wh(495px, 80px)
-							>p 
-								@include sc(14px, $theme_color)
-								margin: 29px 0 10px 0
-						.right 
-							>div 
-								border-bottom: $border
+									font-size: 16px
+								.icon-weixuanzhong 
+									font-size: 21px
+									padding-left: 7px
+									padding-right: 15px
+									vertical-align: middle
+								.icon--dianpu
+									padding-right: 10px
+									font-size: 21px
+							div:nth-child(2)
+								float: right
+						.titleList
+							padding: 15px 0
+							border-bottom: $border
+							span
+								display: inline-block
+								@include wc(227px, center)
+							span:first-child
+								width: 450px
+						.goodsInfo
+							.details
 								overflow: hidden
-								@include hh(55px, 55px)
-								padding: 0 15px
-								>span:first-child 
+								padding: 15px 0
+								border-bottom: $border
+								>div 
 									float: left
-									color: #666
-									width: 170px
-									text-align: right
-								>span:nth-child(2)
+								.goods
+									overflow: hidden
+									width: 450px
+									padding-right: 15px
+									cursor: pointer
+									>div
+										float: left
+									div
+										img 
+											@include wh(100px, 100px)
+											margin-right: 15px
+									div:nth-child(2)
+										width: 310px
+										p 
+											overflow: hidden
+											text-overflow: ellipsis
+											display: -webkit-box
+											-webkit-box-orient: vertical
+											-webkit-line-clamp: 2
+											line-height: 22px
+											height: 44px
+										.color									
+											@include sc(14px, #666)
+											padding: 15px 0 5px 0
+											display: block
+										.fullCut
+											@include sc(14px, $theme_color)
+										span
+											i
+												margin-right: 10px
+								.price, .subtotal, .quantity
+									width: 227px
+									height: 104px
+									text-align: center
+									position: relative
+									>div 
+										@include center
+								.price, .subtotal
+									>div
+										span, del 
+											display: block
+											margin-bottom: 10px
+										span 
+											color: $theme_color
+										del 
+											color: #666
+							.details:last-child
+								border-bottom: none
+
+								padding-bottom: 0
+							.quantity-discount
+								@include hh(50px, 50px)
+								span:nth-child(2)
 									float: right
 									color: $theme_color
-							>div:first-child
-								>span:nth-child(2)
-									color: #666
-							>div:last-child 
-								border-bottom: none
-								span.CouponSelect
-									overflow: hidden
-									width: 425px
-									>span 
-										display: inline-block
-										float: left
-										width: 170px
-									>div 
-										float: left
-										display: inline-block
-										width: 255px
-										text-align: left
-										padding-left: 10px
-					.finalPrice
-						background-color: #eee 
-						text-align: right
-						@include whh(100%, 40px, 40px)
-						margin: 15px 0
-						padding: 0 15px
-						>span:first-child
-							color: #666
-						>span:nth-child(2)
-							color: $theme_color
-							padding-left: 30px
-							font-size: 21px
-					.btn 
-						text-align: right
-						button 
-							@include whch(180px, 40px, center, 40px)
-							background-color: $theme_color
-							color: #fff
-							border-radius: $border_radius
-	.el-dropdown-selfdefine
-		padding: 7px 8px
-		border: $border
-		text-align: left
-	.el-dropdown-selfdefine:hover
-		background-color: #fff
-		color: rgb(96, 98, 102)
-	.el-dropdown-menu__item:hover
-		background-color: #fff
-		color: $theme_color
-	.el-dropdown-menu__item
-		padding: 0 20px
-	.el-icon-arrow-down.el-icon--right
-		padding-left: 5px
-	
-	.addInfo
-		@include wh(580px,520px)
-		padding: 0 15px
-		background: #fff
-		border-radius: 8px
-		.box 
-			.boxFrom
-				margin-top: 15px
-				>div 
-					margin-bottom: 15px
+							.quantity-discount:nth-child(3)
+								border-top: 1px solid #dfdfdf
+
+				.payItem
 					overflow: hidden
-					label 
+					border-top: $border 
+					border-bottom: $border
+					.left, .right 
 						float: left
-						line-height: 40px
-						width: 100px
+						width: 50%
+					.left 
+						border-right: $border
+						>div 
+							padding: 15px 0
+							overflow: hidden
+							span, textarea 
+								float: left
+							span 
+								width: 75px 
+								color: #666
+							textarea
+								@include wh(495px, 80px)
+						>p 
+							@include sc(14px, $theme_color)
+							margin: 29px 0 10px 0
+					.right 
+						>div 
+							border-bottom: $border
+							overflow: hidden
+							@include hh(55px, 55px)
+							padding: 0 15px
+							>span:first-child 
+								float: left
+								color: #666
+								width: 170px
+								text-align: right
+							>span:nth-child(2)
+								float: right
+								color: $theme_color
+						>div:first-child
+							>span:nth-child(2)
+								color: #666
+						>div:last-child 
+							border-bottom: none
+							span.CouponSelect
+								overflow: hidden
+								width: 425px
+								>span 
+									display: inline-block
+									float: left
+									width: 170px
+								>div 
+									float: left
+									display: inline-block
+									width: 255px
+									text-align: left
+									padding-left: 10px
+				.finalPrice
+					background-color: #eee 
+					text-align: right
+					@include whh(100%, 40px, 40px)
+					margin: 15px 0
+					padding: 0 15px
+					>span:first-child
 						color: #666
-					input 
-						float: left
-						@include wh(445px, 40px)
-						padding: 5px
-					textarea 
-						width: 446px
-						height: 100px
-						font-size: 16px
-						margin-left: 99px
-				.setDefault
-					label
-						cursor: pointer
-						i 
-							font-size: 18px
-							padding-right: 5px
-					label.default
+					>span:nth-child(2)
 						color: $theme_color
-			.btn 
-				width: 545px
-				text-align: center
-				button 
-					@include whch(145px, 40px, center, 40px)
-					background-color: $theme_color
-					color: #fff
-					border-radius: $border_radius
+						padding-left: 30px
+						font-size: 21px
+				.btn 
+					text-align: right
+					button 
+						@include whch(180px, 40px, center, 40px)
+						background-color: $theme_color
+						color: #fff
+						border-radius: $border_radius
+.el-dropdown-selfdefine
+	padding: 7px 8px
+	border: $border
+	text-align: left
+.el-dropdown-selfdefine:hover
+	background-color: #fff
+	color: rgb(96, 98, 102)
+.el-dropdown-menu__item:hover
+	background-color: #fff
+	color: $theme_color
+.el-dropdown-menu__item
+	padding: 0 20px
+.el-icon-arrow-down.el-icon--right
+	padding-left: 5px
+.addInfo.minHeight
+	height: 240px
+.addInfo
+	@include wh(580px,520px)
+	padding: 0 15px
+	background: #fff
+	border-radius: 8px
+	.box 
+		.boxFrom
+			margin-top: 15px
+			>div 
+				margin-bottom: 15px
+				overflow: hidden
+				label 
+					float: left
+					line-height: 40px
+					width: 100px
+					color: #666
+				input 
+					float: left
+					@include wh(445px, 40px)
+					padding: 5px
+				textarea 
+					width: 446px
+					height: 100px
+					font-size: 16px
+					margin-left: 99px
+			.setDefault
+				label
+					cursor: pointer
+					i 
+						font-size: 18px
+						padding-right: 5px
+				label.default
+					color: $theme_color
+		.btn 
+			width: 545px
+			text-align: center
+			button 
+				@include whch(145px, 40px, center, 40px)
+				background-color: $theme_color
+				color: #fff
+				border-radius: $border_radius
 
 </style>
