@@ -60,12 +60,15 @@
 				}
 	        }
         },
-        async asyncData ({app,params}) {
+        async asyncData ({app,params,store}) {
         	const param = {
         		couponId: params.id,
         		page: 1,
         		pageSize: 10,
-        	}
+			}
+			// 获取分类
+			const categoryList = await app.$axios.post(interfaceApi.categoryList,{fname: 0})
+			store.commit('SET_CATEGORYLIST',categoryList.data.data);
 		 	const goodsListData = await app.$axios.post(interfaceApi.couponItemList,param)
   			return { goodsListData: goodsListData.data.data }
 		},

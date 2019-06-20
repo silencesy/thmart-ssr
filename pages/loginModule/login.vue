@@ -81,13 +81,15 @@
 				// 	}
 				// },
 	    	setGoBackUrl() {
-	    		if (this.$route.query.ref) {
-						if(this.$route.query.ref.indexOf('uf.thatsmags.com') != -1) {
-							var goBackAddr = this.$route.query.ref;
-	    				localStorage.setItem('goback',goBackAddr);
+				var url = this.$route.fullPath.substr(23,this.$route.fullPath.length);
+				var finallyUrl = unescape(url);
+	    		if (finallyUrl) {
+						if(finallyUrl.indexOf('uf.thatsmags.com') != -1) {
+							var goBackAddr = finallyUrl;
+	    					localStorage.setItem('goback',goBackAddr);
 						} else {
-							var goBackAddr = window.location.origin + this.$route.query.ref;
-	    				localStorage.setItem('goback',goBackAddr);
+							var goBackAddr = window.location.origin + finallyUrl;
+	    					localStorage.setItem('goback',goBackAddr);
 						}
 	    			
 	    		} else {

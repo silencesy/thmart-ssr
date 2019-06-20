@@ -119,17 +119,18 @@
 				.coupons-container
 					width: 100%
 					overflow: hidden
+					display: flex
+					flex-wrap: wrap
+					justify-content: space-between
 					.coupons-item
-						width: 49.2%
+						width: 32.3%
 						cursor: pointer
-						float: left
-						margin-right: 1.6%
 						margin-top: 15px
+						border: 1px solid #dfdfdf
+						border-radius: 4px
+						overflow: hidden
 						img
 							width: 100%
 							height: auto
-					.coupons-item:nth-child(2n)
-						margin-right: 0
-
 
 </style>

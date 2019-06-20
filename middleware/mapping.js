@@ -40,11 +40,16 @@ export default function({ route, req, params, query, redirect }) {
             case 'category-item':
                 redirect(baseUrl + 'Categories?id=' + query.one + '&childid=' + query.two);
                 break;
+            case 'userCenter-coupons-getCoupon':
+                redirect(baseUrl + 'getCoupon');
+                break;
             case 'loginModule-login':
-                if (route.query.ref.indexOf('uf.thatsmags.com/') != -1) {
-                    redirect(baseUrl + '/Login?ref=' + route.query.ref);
+                var url = route.fullPath;
+                var finallyUrl = url.substr(23, url.length);
+                if (finallyUrl.indexOf('uf.thatsmags.com') != -1) {
+                    redirect(baseUrl + 'Login?ref=' + finallyUrl);
                 } else {
-                    redirect(baseUrl + '/Login');
+                    redirect(baseUrl + 'Login');
                 }
                 break;
                 // 其他

@@ -114,6 +114,8 @@ let api = {
     // 添加评论
     addComment: 'Comment/add',
     // 添加评论详情
-    commentDetails: 'Order/ordersSkuDetail'
+    commentDetails: 'Order/ordersSkuDetail',
+    // 优惠券广告页面
+    discountlist: 'Ads/Home/discountlist'
 }
 export default api
