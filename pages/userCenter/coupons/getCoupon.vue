@@ -23,7 +23,10 @@
 import interfaceApi from '~/plugins/interfaceApi'
 export default {
     async asyncData ({app,query,store}) {
-        const discountlist = await app.$axios.post(interfaceApi.discountlist);
+        var params = {
+            id: query.id
+        };
+        const discountlist = await app.$axios.post(interfaceApi.discountlist,params);
         // 获取分类
         const categoryList = await app.$axios.post(interfaceApi.categoryList,{fname: 0})
         store.commit('SET_CATEGORYLIST',categoryList.data.data);
