@@ -41,7 +41,7 @@ export default function({ route, req, params, query, redirect }) {
                 redirect(baseUrl + 'Categories?id=' + query.one + '&childid=' + query.two);
                 break;
             case 'userCenter-coupons-getCoupon':
-                redirect(baseUrl + 'getCoupon');
+                redirect(baseUrl + 'getCoupon?id=' + query.id);
                 break;
             case 'loginModule-login':
                 var url = route.fullPath;

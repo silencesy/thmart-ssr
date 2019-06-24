@@ -104,7 +104,7 @@
 					<nuxt-link to="/article/articleList">More<i class="iconfont icon-combinedshapefuben"></i></nuxt-link> -->
 				</div>
 				<div class="articlePer">
-					<nuxt-link v-for="(item,index) in homeData.exploreChina.data" :key="index" v-if="index<9" :to="{name: 'goods-id',params: {id: item.id}}">
+					<nuxt-link v-for="(item,index) in homeData.exploreChina.data" :key="index" v-if="index<6" :to="{name: 'goods-id',params: {id: item.id}}">
 						<p><img v-lazy="item.pic" alt=""></p> 
 						<div class="per">
 							<p>{{item.title}}</p>
