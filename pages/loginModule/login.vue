@@ -84,7 +84,7 @@
 				var url = this.$route.fullPath.substr(23,this.$route.fullPath.length);
 				var finallyUrl = unescape(url);
 	    		if (finallyUrl) {
-						if(finallyUrl.indexOf('uf.thatsmags.com') != -1) {
+						if(finallyUrl.indexOf('urban-family.com') != -1) {
 							var goBackAddr = finallyUrl;
 	    					localStorage.setItem('goback',goBackAddr);
 						} else {
@@ -194,7 +194,7 @@
 			},
 			wechatLogin() {
 				let path = window.localStorage.getItem('goback');
-				if(path.indexOf('uf.thatsmags.com') != -1) {
+				if(path.indexOf('urban-family.com') != -1) {
 					var goback = path + "|" + window.location.origin + '/loginModule/signPhoneWx'+ '|pc';
 					window.location.href="https://open.weixin.qq.com/connect/qrconnect?appid=wxf62ca307a8f76a6e&redirect_uri=http%3A%2F%2Fapi.mall.thatsmags.com%2FthmartApi%2FUser%2FWx%2Flogin&response_type=code&scope=snsapi_login&state=" + goback;
 				} else {

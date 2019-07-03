@@ -15,28 +15,23 @@ var commonJs= {
         	// 执行回跳地址
         	JumpBackToPage: function() {
 				var address = localStorage.getItem('goback') ||  null;
-				// if (address.indexOf('uf.thatsmags.com') != -1) {
-				// 	var token = Cookie.get('token');
-				// 	window.location.href = address + '?token=' + decodeURIComponent(decodeURIComponent(token));
-				// } else {
-					if (address) {
-						if (address.indexOf('uf.thatsmags.com') != -1) {
-							if (address.indexOf('?') != -1) {
-								var token = Cookie.get('token');
-								window.location.href = address + '&token=' + decodeURIComponent(decodeURIComponent(token));
-							} else {
-								var token = Cookie.get('token');
-								window.location.href = address + '?token=' + decodeURIComponent(decodeURIComponent(token));
-							}
-							
+				if (address) {
+					if (address.indexOf('urban-family.com') != -1) {
+						if (address.indexOf('?') != -1) {
+							var token = Cookie.get('token');
+							window.location.href = address + '&token=' + decodeURIComponent(decodeURIComponent(token));
 						} else {
-							window.location.href = address;
+							var token = Cookie.get('token');
+							window.location.href = address + '?token=' + decodeURIComponent(decodeURIComponent(token));
 						}
+						
 					} else {
-						window.location.href = window.location.origin;
+						window.location.href = address;
 					}
-					localStorage.removeItem('goback')
-				// }
+				} else {
+					window.location.href = window.location.origin;
+				}
+				localStorage.removeItem('goback')
         	},
             // 判断是否登录
             isLogin: function () {

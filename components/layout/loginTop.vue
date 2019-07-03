@@ -25,7 +25,7 @@
                 window.location.href = url;
             },
             goUfHome() {
-                window.location.href = 'http://uf.thatsmags.com/';
+                window.location.href = 'http://www.urban-family.com/';
             }
         }
     }

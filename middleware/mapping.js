@@ -46,7 +46,7 @@ export default function({ route, req, params, query, redirect }) {
             case 'loginModule-login':
                 var url = route.fullPath;
                 var finallyUrl = url.substr(23, url.length);
-                if (finallyUrl.indexOf('uf.thatsmags.com') != -1) {
+                if (finallyUrl.indexOf('urban-family.com') != -1) {
                     redirect(baseUrl + 'Login?ref=' + finallyUrl);
                 } else {
                     redirect(baseUrl + 'Login');

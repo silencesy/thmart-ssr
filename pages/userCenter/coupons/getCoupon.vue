@@ -53,7 +53,13 @@ export default {
         },
         // 优惠券列表页 
         bindUseCoupon(id) {
-            this.$router.push({name: 'userCenter-coupons-id',params: {id: id}});
+            var that = this;
+            //判断用户是否登录
+            if (!that.user.isLogin()) {
+                that.$store.commit('LOGIN',true);
+            } else {
+                this.$router.push({name: 'userCenter-coupons-id',params: {id: id}});
+            }
         }
     }
 }

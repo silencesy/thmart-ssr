@@ -30,158 +30,334 @@
 					    </div>
 					</div>
 					<!-- 右边 -->
-					<div class="goodsRight" style="width:522px;">
-						<p>{{goodsInfo.title}}</p>
-						<div class="box">
-							<div class="list">
+					<div class="goodsRight" style="width:538px;">
+                        <!-- 拼单商品 -->
+                        <div class="spell-content" v-if="goodsInfo.type == 'spell'">
+                            <el-tabs v-model="goodsClassTabName" @tab-click="handleTabClick">
+                                <el-tab-pane label="Duo Deal" name="spell">
+                                    <div>
+                                        <p>{{goodsInfo.title}}</p>
+                                        <div class="box">
+                                            <div class="list">
 
-                                <!-- 普通商品 -->
-								<!-- 页面加载的时候显示价格 -->
-								<div class="row-item rowPrice" :class="{redPrice: goodsInfo.type=='group'}" v-if="!skuInfo && !skuInfo">
-									<span>Price</span>
-									<div>
-										<el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'GROUPBUY':'Duo Deal' " class="item">
-										  	<el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
-                                            <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
-										</el-badge>
-									</div>
-                                    <div class="GroupCountDown" v-if="goodsInfo.type=='group'">
-                                        <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="goodsInfo.group.currentTime" :startTime="goodsInfo.group.currentTime" :endTime="Number(goodsInfo.group.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
-                                    </div>
-								</div>
-                                <!-- 选择sku显示价格 -->
-                                <!-- 普通商品 -->
-                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='none'">
-                                    <span>Price</span>
-                                    <div>
-                                        <el-badge value="" class="item">
-                                            <el-button size="small">¥ {{skuInfo.price}}</el-button>
-                                        </el-badge>
-                                    </div>
-                                </div>
-                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='spell'">
-                                    <span>Price</span>
-                                    <div>
-                                        <el-badge value="Duo Deal" class="item">
-                                            <el-button size="small">¥ {{skuInfo.price}}</el-button>
-                                        </el-badge>
-                                    </div>
-                                </div>
-                                <!-- 促销商品 -->
-                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='sale'">
-                                    <span>Price</span>
-                                    <div>
-                                        <el-badge value="SALE" class="item">
-                                            <el-button size="small">¥ {{skuInfo.price}}</el-button>
-                                        </el-badge>
-                                        <del v-if="skuInfo.originalPrice">¥ {{skuInfo.originalPrice}}</del>
-                                    </div>
-                                </div>
-                                <!-- 团购商品 -->
-                                <div class="row-item rowPrice redPrice" v-if="skuInfo && skuInfo.type=='group'">
-                                    <span class="price">Price</span>
-                                    <div>
-                                        <el-badge value="GROUPBUY" class="item">
-                                            <el-button size="small">¥ {{skuInfo.price}}</el-button>
-                                        </el-badge>
-                                        <del class="del" style="color:#fff;" v-if="skuInfo.originalPrice">¥ {{skuInfo.originalPrice}}</del>
-                                    </div>
-                                    <div class="GroupCountDown">
-                                        <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="skuInfo.currentTime" :startTime="skuInfo.currentTime" :endTime="Number(skuInfo.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
-                                    </div>
-                                </div>
-                                <div class="spell" v-if="goodsInfo.type == 'spell' && goodsInfo.spellInfo.spellList.length > 0">
-                                    <div>Group Buy List</div>
-                                    <div class="row-item" v-for="(item,index) in goodsInfo.spellInfo.spellList" :key="index">                                        
-                                        <span class="type"></span>
-                                        <div class="spell-list">
-                                            <div>
-                                                <img :src="item.headimg_url" alt="">
-                                                <i>{{item.nickname}}</i>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    Only <i class="theme_color">{{item.number_left}}</i> Vacancy Left
+                                                <!-- 普通商品 -->
+                                                <!-- 页面加载的时候显示价格 -->
+                                                <div class="row-item rowPrice" :class="{redPrice: goodsInfo.type=='group'}" v-if="!skuInfo && !skuInfo">
+                                                    <span>Price</span>
+                                                    <div>
+                                                        <el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'GROUPBUY':'Duo Deal' " class="item">
+                                                            <el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
+                                                            <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
+                                                        </el-badge>
+                                                    </div>
+                                                    <div class="GroupCountDown" v-if="goodsInfo.type=='group'">
+                                                        <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="goodsInfo.group.currentTime" :startTime="goodsInfo.group.currentTime" :endTime="Number(goodsInfo.group.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                                    </div>
                                                 </div>
-                                                <div>
-                                                    <count-down :currentTime="item.currentTime" :startTime="item.currentTime" :endTime="Number(item.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                                <!-- 选择sku显示价格 -->
+                                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='spell'">
+                                                    <span>Price</span>
+                                                    <div>
+                                                        <el-badge value="Duo Deal" class="item">
+                                                            <el-button size="small">¥ {{skuInfo.spellPrice}}</el-button>
+                                                        </el-badge>
+                                                    </div>
+                                                </div>
+                                                <div class="spell" v-if="goodsInfo.type == 'spell' && goodsInfo.spellInfo.spellList.length > 0">
+                                                    <div>Group Buy List</div>
+                                                    <div class="row-item" v-for="(item,index) in goodsInfo.spellInfo.spellList" :key="index">                                        
+                                                        <span class="type"></span>
+                                                        <div class="spell-list">
+                                                            <div>
+                                                                <img :src="item.headimg_url" alt="">
+                                                                <i>{{item.nickname}}</i>
+                                                            </div>
+                                                            <div>
+                                                                <div>
+                                                                    Only <i class="theme_color">{{item.number_left}}</i> Vacancy Left
+                                                                </div>
+                                                                <div>
+                                                                    <count-down :currentTime="item.currentTime" :startTime="item.currentTime" :endTime="Number(item.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <button @click="scqrcode('join',item.orderNumber)">Join Now</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row-item" v-if="!(goodsInfo.overReduce.length == 0 && goodsInfo.couponList.length == 0)">
+                                                    <span>Special Offers</span>
+                                                    <div class="special-offers">
+                                                        <div v-if="goodsInfo.overReduce.length != 0">
+                                                            <i class="reduce">￥{{goodsInfo.overReduce.over}}-{{goodsInfo.overReduce.reduce}}</i>
+                                                            <em>{{goodsInfo.overReduce.name}}</em>
+                                                        </div>
+                                                        <div v-if="goodsInfo.couponList.length>0">
+                                                            <i class="coupon">RMB{{goodsInfo.couponList[0].reduce}}</i>
+                                                            <em>{{goodsInfo.couponList[0].name}}</em>
+                                                            <em class="get" @click="getCoupon">GET</em>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row-item">
+                                                    <span>Shipping</span>
+                                                    <div>
+                                                        <span>¥ 10.00</span>
+                                                        <span class="forFree">Free delivery for RMB99 purchase and up</span>
+                                                    </div>
+                                                </div> -->
+                                                <div :class="{'group-border': groupBorder}" style="width: 500px;">
+                                                    <div class="title" v-if="groupBorder">
+                                                        Please choose your preferred options!
+                                                        <i class="iconfont icon-close" @click="closeGroupBorder"></i>
+                                                    </div>
+                                                    <div class="row-item" v-for="(item,key) in list.result" :key="key">
+                                                        <span class="type">{{key}}</span>
+                                                        <div class="btn">
+                                                            <span v-for="(value,index) in item" class="noselect" v-bind:class="{selected: value.active, soldOut: !value.active && value.disabled}"  @click="handleActive(key, value)" :key="index">{{ value.name }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-item">
+                                                        <span class="type">Quantity</span>
+                                                        <div v-if="!skuInfo">
+                                                            <el-input-number size="small" :max="Number(goodsInfo.sumStock)" :min="1" v-model="num1"></el-input-number>
+                                                        </div>
+                                                        <div v-if="skuInfo">
+                                                            <el-input-number size="small" :max="Number(skuInfo.stock)" :min="1" v-model="num1"></el-input-number>
+                                                        </div>
+                                                        <!-- 当前商品所有库存 -->
+                                                        <div v-if="!skuInfo">
+                                                            <span class="stock">Stock: {{goodsInfo.sumStock}}</span>
+                                                        </div>
+                                                        <!-- 选择单个sku的库存 -->
+                                                        <div v-if="skuInfo">
+                                                            <span class="stock">Stock: {{skuInfo.stock}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="buy row-item" v-show="!groupBorder">
+                                                    
+                                                    <button @click="scqrcode('buy',goodsInfo.id)">Start Duo Deal</button>
+                                                </div>
+                                                
+                                                <div class="tips row-item">
+                                                    <span class="noselect" :class="{theme_color: goodsInfo.isCollect==1}" @click="favourite"><i class="iconfont icon-review"></i>favourite</span>
+                                                    <span @click="showChat"><i class="iconfont icon-kefu"></i>Customer Service</span>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <button @click="scqrcode('join',item.orderNumber)">Join Now</button>
+                                        </div>
+                                    </div>
+                                </el-tab-pane>
+                                <el-tab-pane label="Original Price" name="original">
+                                    <div>
+                                        <p>{{goodsInfo.title}}</p>
+                                        <div class="box">
+                                            <div class="list">
+
+                                                <!-- 普通商品 -->
+                                                <!-- 页面加载的时候显示价格 -->
+                                                <div class="row-item rowPrice" :class="{redPrice: goodsInfo.type=='group'}" v-if="!skuInfo && !skuInfo">
+                                                    <span>Price</span>
+                                                    <div>
+                                                        <el-badge class="item">
+                                                            <el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
+                                                            <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
+                                                        </el-badge>
+                                                    </div>
+                                                    <div class="GroupCountDown" v-if="goodsInfo.type=='group'">
+                                                        <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="goodsInfo.group.currentTime" :startTime="goodsInfo.group.currentTime" :endTime="Number(goodsInfo.group.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                                    </div>
+                                                </div>
+                                                <!-- 选择sku显示价格 -->
+                                                <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='spell'">
+                                                    <span>Price</span>
+                                                    <div>
+                                                        <el-badge class="item">
+                                                            <el-button size="small">¥ {{skuInfo.price}}</el-button>
+                                                        </el-badge>
+                                                    </div>
+                                                </div>
+                                                <div class="row-item" v-if="!(goodsInfo.overReduce.length == 0 && goodsInfo.couponList.length == 0)">
+                                                    <span>Special Offers</span>
+                                                    <div class="special-offers">
+                                                        <div v-if="goodsInfo.overReduce.length != 0">
+                                                            <i class="reduce">￥{{goodsInfo.overReduce.over}}-{{goodsInfo.overReduce.reduce}}</i>
+                                                            <em>{{goodsInfo.overReduce.name}}</em>
+                                                        </div>
+                                                        <div v-if="goodsInfo.couponList.length>0">
+                                                            <i class="coupon">RMB{{goodsInfo.couponList[0].reduce}}</i>
+                                                            <em>{{goodsInfo.couponList[0].name}}</em>
+                                                            <em class="get" @click="getCoupon">GET</em>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="row-item">
+                                                    <span>Shipping</span>
+                                                    <div>
+                                                        <span>¥ 10.00</span>
+                                                        <span class="forFree">Free delivery for RMB99 purchase and up</span>
+                                                    </div>
+                                                </div> -->
+                                                <div :class="{'group-border': groupBorder}" style="width: 500px;">
+                                                    <div class="title" v-if="groupBorder">
+                                                        Please choose your preferred options!
+                                                        <i class="iconfont icon-close" @click="closeGroupBorder"></i>
+                                                    </div>
+                                                    <div class="row-item" v-for="(item,key) in list.result" :key="key">
+                                                        <span class="type">{{key}}</span>
+                                                        <div class="btn">
+                                                            <span v-for="(value,index) in item" class="noselect" v-bind:class="{selected: value.active, soldOut: !value.active && value.disabled}"  @click="handleActive(key, value)" :key="index">{{ value.name }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row-item">
+                                                        <span class="type">Quantity</span>
+                                                        <div v-if="!skuInfo">
+                                                            <el-input-number size="small" :max="Number(goodsInfo.sumStock)" :min="1" v-model="num1"></el-input-number>
+                                                        </div>
+                                                        <div v-if="skuInfo">
+                                                            <el-input-number size="small" :max="Number(skuInfo.stock)" :min="1" v-model="num1"></el-input-number>
+                                                        </div>
+                                                        <!-- 当前商品所有库存 -->
+                                                        <div v-if="!skuInfo">
+                                                            <span class="stock">Stock: {{goodsInfo.sumStock}}</span>
+                                                        </div>
+                                                        <!-- 选择单个sku的库存 -->
+                                                        <div v-if="skuInfo">
+                                                            <span class="stock">Stock: {{skuInfo.stock}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="buy row-item" v-show="!groupBorder">
+                                                    <button @click="buyNow">Buy Now</button>
+                                                    <button @click="addToCart('spell')">Add To Cart</button>
+                                                </div>
+                                                <div class="tips row-item">
+                                                    <span class="noselect" :class="{theme_color: goodsInfo.isCollect==1}" @click="favourite"><i class="iconfont icon-review"></i>favourite</span>
+                                                    <span @click="showChat"><i class="iconfont icon-kefu"></i>Customer Service</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row-item" v-if="!(goodsInfo.overReduce.length == 0 && goodsInfo.couponList.length == 0)">
-                                    <span>Special Offers</span>
-                                    <div class="special-offers">
-                                        <div v-if="goodsInfo.overReduce.length != 0">
-                                            <i class="reduce">￥{{goodsInfo.overReduce.over}}-{{goodsInfo.overReduce.reduce}}</i>
-                                            <em>{{goodsInfo.overReduce.name}}</em>
+                                </el-tab-pane>
+                            </el-tabs>
+                        </div>
+                        <!-- 非拼单商品 -->
+						<div v-else>
+                            <p>{{goodsInfo.title}}</p>
+                            <div class="box">
+                                <div class="list">
+
+                                    <!-- 普通商品 -->
+                                    <!-- 页面加载的时候显示价格 -->
+                                    <div class="row-item rowPrice" :class="{redPrice: goodsInfo.type=='group'}" v-if="!skuInfo && !skuInfo">
+                                        <span>Price</span>
+                                        <div>
+                                            <el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'GROUPBUY':'Duo Deal' " class="item">
+                                                <el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
+                                                <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
+                                            </el-badge>
                                         </div>
-                                        <div v-if="goodsInfo.couponList.length>0">
-                                            <i class="coupon">RMB{{goodsInfo.couponList[0].reduce}}</i>
-                                            <em>{{goodsInfo.couponList[0].name}}</em>
-                                            <em class="get" @click="getCoupon">GET</em>
+                                        <div class="GroupCountDown" v-if="goodsInfo.type=='group'">
+                                            <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="goodsInfo.group.currentTime" :startTime="goodsInfo.group.currentTime" :endTime="Number(goodsInfo.group.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
                                         </div>
+                                    </div>
+                                    <!-- 选择sku显示价格 -->
+                                    <!-- 普通商品 -->
+                                    <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='none'">
+                                        <span>Price</span>
+                                        <div>
+                                            <el-badge value="" class="item">
+                                                <el-button size="small">¥ {{skuInfo.price}}</el-button>
+                                            </el-badge>
+                                        </div>
+                                    </div>
+                                    <!-- 促销商品 -->
+                                    <div class="row-item rowPrice" v-if="skuInfo && skuInfo.type=='sale'">
+                                        <span>Price</span>
+                                        <div>
+                                            <el-badge value="SALE" class="item">
+                                                <el-button size="small">¥ {{skuInfo.price}}</el-button>
+                                            </el-badge>
+                                            <del v-if="skuInfo.originalPrice">¥ {{skuInfo.originalPrice}}</del>
+                                        </div>
+                                    </div>
+                                    <!-- 团购商品 -->
+                                    <div class="row-item rowPrice redPrice" v-if="skuInfo && skuInfo.type=='group'">
+                                        <span class="price">Price</span>
+                                        <div>
+                                            <el-badge value="GROUPBUY" class="item">
+                                                <el-button size="small">¥ {{skuInfo.price}}</el-button>
+                                            </el-badge>
+                                            <del class="del" style="color:#fff;" v-if="skuInfo.originalPrice">¥ {{skuInfo.originalPrice}}</del>
+                                        </div>
+                                        <div class="GroupCountDown">
+                                            <count-down v-on:start_callback="countDownS_cb(1)" v-on:end_callback="countDownE_cb(1)" :currentTime="skuInfo.currentTime" :startTime="skuInfo.currentTime" :endTime="Number(skuInfo.endTime)" :tipText="''" :tipTextEnd="''" :endText="'Closed'" :dayTxt="'Days '" :hourTxt="':'" :minutesTxt="':'" :secondsTxt="''"></count-down>
+                                        </div>
+                                    </div>
+                                    <div class="row-item" v-if="!(goodsInfo.overReduce.length == 0 && goodsInfo.couponList.length == 0)">
+                                        <span>Special Offers</span>
+                                        <div class="special-offers">
+                                            <div v-if="goodsInfo.overReduce.length != 0">
+                                                <i class="reduce">￥{{goodsInfo.overReduce.over}}-{{goodsInfo.overReduce.reduce}}</i>
+                                                <em>{{goodsInfo.overReduce.name}}</em>
+                                            </div>
+                                            <div v-if="goodsInfo.couponList.length>0">
+                                                <i class="coupon">RMB{{goodsInfo.couponList[0].reduce}}</i>
+                                                <em>{{goodsInfo.couponList[0].name}}</em>
+                                                <em class="get" @click="getCoupon">GET</em>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row-item">
+                                        <span>Shipping</span>
+                                        <div>
+                                            <span>¥ 10.00</span>
+                                            <span class="forFree">Free delivery for RMB99 purchase and up</span>
+                                        </div>
+                                    </div> -->
+                                    <div :class="{'group-border': groupBorder}" style="width: 525px;">
+                                        <div class="title" v-if="groupBorder">
+                                            Please choose your preferred options!
+                                            <i class="iconfont icon-close" @click="closeGroupBorder"></i>
+                                        </div>
+                                        <div class="row-item" v-for="(item,key) in list.result" :key="key">
+                                            <span class="type">{{key}}</span>
+                                            <div class="btn">
+                                                <span v-for="(value,index) in item" class="noselect" v-bind:class="{selected: value.active, soldOut: !value.active && value.disabled}"  @click="handleActive(key, value)" :key="index">{{ value.name }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row-item">
+                                            <span class="type">Quantity</span>
+                                            <div v-if="!skuInfo">
+                                                <el-input-number size="small" :max="Number(goodsInfo.sumStock)" :min="1" v-model="num1"></el-input-number>
+                                            </div>
+                                            <div v-if="skuInfo">
+                                                <el-input-number size="small" :max="Number(skuInfo.stock)" :min="1" v-model="num1"></el-input-number>
+                                            </div>
+                                            <!-- 当前商品所有库存 -->
+                                            <div v-if="!skuInfo">
+                                                <span class="stock">Stock: {{goodsInfo.sumStock}}</span>
+                                            </div>
+                                            <!-- 选择单个sku的库存 -->
+                                            <div v-if="skuInfo">
+                                                <span class="stock">Stock: {{skuInfo.stock}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="buy row-item" v-show="!groupBorder">
+                                        <button @click="buyNow">Buy Now</button>
+                                        <button @click="addToCart('none')">Add To Cart</button>
+                                    </div>
+                                    <div class="tips row-item">
+                                        <span class="noselect" :class="{theme_color: goodsInfo.isCollect==1}" @click="favourite"><i class="iconfont icon-review"></i>favourite</span>
+                                        <span @click="showChat"><i class="iconfont icon-kefu"></i>Customer Service</span>
                                     </div>
                                 </div>
-								<!-- <div class="row-item">
-									<span>Shipping</span>
-									<div>
-										<span>¥ 10.00</span>
-										<span class="forFree">Free delivery for RMB99 purchase and up</span>
-									</div>
-								</div> -->
-								<div :class="{'group-border': groupBorder}" style="width: 525px;">
-                                    <div class="title" v-if="groupBorder">
-                                        Please choose your preferred options!
-                                        <i class="iconfont icon-close" @click="closeGroupBorder"></i>
-                                    </div>
-                                    <div class="row-item" v-for="(item,key) in list.result" :key="key">
-                                        <span class="type">{{key}}</span>
-                                        <div class="btn">
-                                            <span v-for="(value,index) in item" class="noselect" v-bind:class="{selected: value.active, soldOut: !value.active && value.disabled}"  @click="handleActive(key, value)" :key="index">{{ value.name }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="row-item">
-                                        <span class="type">Quantity</span>
-                                        <div v-if="!skuInfo">
-                                            <el-input-number size="small" :max="Number(goodsInfo.sumStock)" :min="1" v-model="num1"></el-input-number>
-                                        </div>
-                                        <div v-if="skuInfo">
-                                            <el-input-number size="small" :max="Number(skuInfo.stock)" :min="1" v-model="num1"></el-input-number>
-                                        </div>
-                                        <!-- 当前商品所有库存 -->
-                                        <div v-if="!skuInfo">
-                                            <span class="stock">Stock: {{goodsInfo.sumStock}}</span>
-                                        </div>
-                                        <!-- 选择单个sku的库存 -->
-                                        <div v-if="skuInfo">
-                                            <span class="stock">Stock: {{skuInfo.stock}}</span>
-                                        </div>
-                                    </div>
-                                </div>
-								<div v-if="goodsInfo.type == 'spell'" class="buy row-item" v-show="!groupBorder">
-                                    <!-- <div id="qrcode" ref="qrcode"></div> -->
-                                    <!-- <button @click="scqrcode">生成二维码</button> -->
-									<button @click="buyNow">Buy Now</button>
-									<button @click="scqrcode('buy',goodsInfo.id)">Start Duo Deal</button>
-								</div>
-                                <div v-else class="buy row-item" v-show="!groupBorder">
-                                    <!-- <div id="qrcode" ref="qrcode"></div> -->
-                                    <!-- <button @click="scqrcode">生成二维码</button> -->
-									<button @click="buyNow">Buy Now</button>
-									<button @click="addToCart">Add To Cart</button>
-								</div>
-								<div class="tips row-item">
-									<span class="noselect" :class="{theme_color: goodsInfo.isCollect==1}" @click="favourite"><i class="iconfont icon-review"></i>favourite</span>
-									<span @click="showChat"><i class="iconfont icon-kefu"></i>Customer Service</span>
-								</div>
-							</div>
-						</div>
+                            </div>
+                        </div>
 					</div>
+                    
 				</div>
 				<div class="detailsPic">
                     <el-tabs v-model="activeName" @tab-click="handleReviewsClick">
@@ -282,6 +458,7 @@
 	    },
 		data(){
             return{
+                goodsClassTabName: 'spell',   // 控制显示普通商品信息展示，还是拼单商品信息展示
                 cur: 0, //评论有图，没有图标识
                 activeName: 'first', //商品详情和评论 tab标识
                 reviewsParam: {
@@ -349,6 +526,9 @@
             next()
         },
 		methods:{
+            handleTabClick() {
+                console.log(123);
+            },
             scqrcode(flag,orderNumber) {
                 this.spellCode = true;
                 this.$nextTick(() => {
@@ -813,8 +993,8 @@
 	  				that.groupBorder = true;
 	  			}
             },
-            // 加入购物车
-            addToCart() {
+            // 加入购物车 flag标识是否为拼单商品加入购物车（拼单商品能加入购物车，购物车显示原价）
+            addToCart(flag) {
             	var that = this;
             	if (that.mustChooseAll()) {
             		// 公共函数里面的方法
@@ -826,19 +1006,29 @@
                             type: 'warning'
                         });
                     } else {
-			      		that.addToCartAjax();
+			      		that.addToCartAjax(flag);
 			      	}
 	  			} else {
 	  				that.groupBorder = true;
 	  			}
             },
-            addToCartAjax() {
+            addToCartAjax(flag) {
                 const that = this;
-                const param = {
-                    goodsId: that.goodsInfo.id,
-                    skuId: that.skuId,
-                    number: that.num1
+                if(flag == 'spell') {
+                    var param = {
+                        goodsId: that.goodsInfo.id,
+                        skuId: that.skuId,
+                        number: that.num1,
+                        isprimecost: 1
+                    }
+                } else {
+                    var param = {
+                        goodsId: that.goodsInfo.id,
+                        skuId: that.skuId,
+                        number: that.num1
+                    }
                 }
+                
                 that.$axios.post(interfaceApi.addCart,param).then(res=> {
                     that.$notify({
                       title: 'Add shopping cart success',
@@ -943,6 +1133,15 @@
                             border: 1px solid #F9421E
                 .goodsRight
                     float: left
+                    .spell-content
+                        border: 1px solid #F9421E
+                        border-radius: 4px
+                        overflow: hidden
+                        margin-bottom: 20px
+                        .el-tab-pane
+                            padding: 0 10px
+                        .box
+                            width: 500px
                     .box
                         width: 540px
                         .list
@@ -1047,6 +1246,7 @@
                                 button:first-child
                                     margin-right: 40px
                             .tips
+                                margin-bottom: 20px
                                 span
                                     width: 180px
                                     text-align: center

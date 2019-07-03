@@ -187,59 +187,57 @@
 </script>
 
 <style lang='sass' scoped>
-	@import '~/assets/sass/common.sass'
-	.wishList
-		.container
-			.wish
-				.title
-					padding-bottom: 13px 
-					border-bottom: $border
-				.section
-	 				.box	 				
-	 					border: $border
-	 					@include wh(182px, 253px)
-	 					float: left
-	 					margin-right: 14px
-	 					margin-bottom: 15px
-	 					>a  
-	 						cursor: pointer
-	 						display: inline-block
-	 						padding: 15px
-	 						@include wh(100%, 100%)
-	 						>div 
-	 							img 
-	 								@include wh(150px, 150px)
-							p 
-								overflow: hidden
-								text-overflow: ellipsis
-								display: -webkit-box
-								-webkit-box-orient: vertical
-								-webkit-line-clamp: 2
-								line-height: 22px 
-								height: 44px
-								text-align: center
-							.bottom
-								padding-top: 5px 
-								overflow: hidden
-								span 
-									float: left
-								i 
-									float: right
-									color: $theme_color
-							.bottomStar.bottom
-								text-align: center
-								i 
-									float: initial
-				.section 
-					overflow: hidden
-					margin-right: -14px
-					.box:nth-last-child(-n+5)
-						margin-bottom: 0
-	.noWishlist
-		position: relative
-		height: 330px
-		p 
-			@include center
-			color: #999
+@import '~/assets/sass/common.sass'
+.wishList
+	.container
+		.wish
+			.title
+				padding-bottom: 13px 
+				border-bottom: $border
+			.section
+				.box	 				
+					border: $border
+					@include wh(182px, 253px)
+					float: left
+					margin-right: 14px
+					margin-bottom: 15px
+					>a  
+						cursor: pointer
+						display: inline-block
+						padding: 15px
+						@include wh(100%, 100%)
+						>div 
+							img 
+								@include wh(150px, 150px)
+						p 
+							overflow: hidden
+							text-overflow: ellipsis
+							display: -webkit-box
+							-webkit-box-orient: vertical
+							-webkit-line-clamp: 2
+							line-height: 22px 
+							height: 44px
+							text-align: center
+						.bottom
+							padding-top: 5px 
+							overflow: hidden
+							span 
+								float: left
+							i 
+								float: right
+								color: $theme_color
+						.bottomStar.bottom
+							text-align: center
+							i 
+								float: initial
+			.section 
+				overflow: hidden
+				margin-right: -14px	
+.noWishlist
+	position: relative
+	height: 330px
+	p 
+		@include center
+		color: #999
 
 </style>
