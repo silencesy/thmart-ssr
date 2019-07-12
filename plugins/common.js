@@ -16,7 +16,7 @@ var commonJs= {
         	JumpBackToPage: function() {
 				var address = localStorage.getItem('goback') ||  null;
 				if (address) {
-					if (address.indexOf('urban-family.com') != -1) {
+					if (address.indexOf('urban-family.com') != -1 || address.indexOf('urfamily.com') != -1) {
 						if (address.indexOf('?') != -1) {
 							var token = Cookie.get('token');
 							window.location.href = address + '&token=' + decodeURIComponent(decodeURIComponent(token));
