@@ -4,7 +4,7 @@
 			<div class="loginBox">
 				 <el-tabs v-model="activeName" @tab-click="handleClick">
 				    <el-tab-pane label="Login via password" name="first">
-						<el-input v-model="phoneNumber" placeholder="Phone/Username">
+						<el-input v-model="phoneNumber" placeholder="Phone">
 							<i slot="prefix" class="iconfont icon-zhanghao"></i>
 						</el-input>
 						<el-input v-model="password" type="password" placeholder="Password" @keyup.enter.native="loginPassword">
@@ -95,33 +95,28 @@
 						}
 	    			
 	    		} else {
-					localStorage.removeItem('goback');
-				}
+						localStorage.removeItem('goback');
+					}
 	    	},
 	      	handleClick(tab, event) {
-					console.log(tab.name);
-				if(tab.name == 'first') {
-					this.code = '';
-				} else if (tab.name == 'second') {
-					this.password = '';
-				}
+	      	  	console.log(tab, event);
 	      	},
 			// 密码登录
 			loginPassword() {
-				if (!this.phoneNumber) {
-					this.$message({
-						message: prompt.usernamenumber,
-						type: 'warning'
-			        });
-		      		return false;
-				  } else 
-				if (!this.password) {
-		      		this.$message({
-						message: prompt.passwordLogin,
-						type: 'warning'
-			        });
-		      		return false;
-		      	}
+				// if (!v.tel(this.phoneNumber)) {
+				// 	this.$message({
+				// 		message: prompt.number,
+				// 		type: 'warning'
+			    //     });
+		      	// 	return false;
+				//   } else 
+				// if (!v.password(this.password)) {
+		      	// 	this.$message({
+				// 		message: prompt.password,
+				// 		type: 'warning'
+			    //     });
+		      	// 	return false;
+		      	// }
 				this.login();
 		    },
 		    // 短信登录

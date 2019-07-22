@@ -1,6 +1,9 @@
 let prompt = {
     // 请输入11位手机号码
     number: 'Please enter a 11-digit valid number!',
+    // 请输入手机号或者密码
+    usernamenumber: 'Please enter a 11-digit valid phone number or username!',
+    passwordLogin: 'Please enter your password',
     // 请输入6-16密码
     password: 'Please enter your password with 6-16 digits (must contain numbers and letters)!',
     // 请输入有效的验证码

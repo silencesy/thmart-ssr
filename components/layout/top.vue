@@ -44,7 +44,7 @@
         <!-- 登录框 -->
         <el-dialog title="Please login first!" :visible.sync="$store.state.dialogFormVisible">
             <div class="loginBox">
-                 <el-tabs v-model="activeName">
+                 <el-tabs v-model="activeName" @tab-click="handleClick">
                     <el-tab-pane label="Login via password" name="first">
                         <el-input v-model="phoneNumber" placeholder="Phone">
                             <i slot="prefix" class="iconfont icon-zhanghao"></i>
@@ -109,6 +109,14 @@
             }
         },
         methods: {
+            handleClick(tab, event) {
+					console.log(tab.name);
+				if(tab.name == 'first') {
+					this.code = '';
+				} else if (tab.name == 'second') {
+					this.password = '';
+				}
+	      	},
             // 微信登录
             weixinLogin() {
                 this.user.SetComebackAddress();
@@ -157,19 +165,20 @@
             },
             // 密码登录
             loginPassword() {
-                if (!v.tel(this.phoneNumber)) {
-                    this.$message({
-                        message: prompt.number,
-                        type: 'warning'
-                    });
-                    return false;
-                } else if (!v.password(this.password)) {
-                    this.$message({
-                        message: prompt.password,
-                        type: 'warning'
-                    });
-                    return false;
-                }
+                if (!this.phoneNumber) {
+					this.$message({
+						message: prompt.usernamenumber,
+						type: 'warning'
+			        });
+		      		return false;
+				  } else 
+				if (!this.password) {
+		      		this.$message({
+						message: prompt.passwordLogin,
+						type: 'warning'
+			        });
+		      		return false;
+		      	}
                 this.loginAxios();
             },
             // 短信登录
@@ -226,7 +235,7 @@
             // 发送登录请求
             loginAxios() {
                 var that = this;
-                that.$axios.post(interfaceApi.login,{
+                that.$axios.post(interfaceApi.userWelogin,{
                     mobile: that.phoneNumber,
                     password: that.password,
                     code: that.code
@@ -247,7 +256,14 @@
                         setTimeout(function(){
                             window.location.reload();
                         },20);
-                    }
+                    } else if (res.data.code == 125) {
+						window.sessionStorage.setItem("mobile",that.phoneNumber);
+                        window.sessionStorage.setItem("password",that.password);
+                        window.localStorage.setItem("goback",window.location.href);
+						that.$router.push({
+							name: 'loginModule-signPhoneThats'
+						})
+					}
                 })
             }
         }

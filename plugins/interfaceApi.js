@@ -116,6 +116,9 @@ let api = {
     // 添加评论详情
     commentDetails: 'Order/ordersSkuDetail',
     // 优惠券广告页面
-    discountlist: 'Ads/Home/discountlist'
+    discountlist: 'Ads/Home/discountlist',
+    userWelogin: 'User/welogin',
+    // thats补全信息
+    userWeuserUpdate: 'User/weuserupdate'
 }
 export default api
