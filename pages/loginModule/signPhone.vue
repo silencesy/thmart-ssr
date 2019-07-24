@@ -22,8 +22,11 @@
 	import interfaceApi from '~/plugins/interfaceApi'
 	// 提示语
 	import prompt from '~/assets/js/prompt'
-	export default {
-		layout: 'signHome',
+	import utils from '~/assets/js/utils'
+	export default {	
+		layout ({ store }) {
+			return utils.signInWith2(store.state.layoutFlag)
+		},
 		data() {
 			return {
 				phoneNumber: '',
@@ -37,9 +40,6 @@
 		mounted() {
 			this.setGoBackUrl();
 		},
-	  	computed: {  
-		    
-	  	},
 		methods: {
 			setGoBackUrl() {
 	    		if (this.$route.query.ref) {

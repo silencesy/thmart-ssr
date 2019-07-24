@@ -23,8 +23,11 @@
 	import interfaceApi from '~/plugins/interfaceApi'
 	// 提示语
 	import prompt from '~/assets/js/prompt'
+	import utils from '~/assets/js/utils'
 	export default {
-		layout: 'passwordHome',
+		layout ({ store }) {
+			return utils.signInWith3(store.state.layoutFlag)
+		},
 		data() {
 			return {
 				password: '',

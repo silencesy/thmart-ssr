@@ -21,10 +21,16 @@ const store = () => new Vuex.Store({
         // 分类数据
         categoryList: [],
         // 首页顶部广告
-        topBanner: []
+        topBanner: [],
+        // 登录页面布局标识,
+        layoutFlag: '' 
     },
 
     mutations: {
+        //设置页面的布局
+        SET_LAYOUT: function (state,name) {
+            state.layoutFlag = name;
+        },
         // 设置用户token
         SET_USER: function(state, token) {
             state.token = token;
@@ -80,6 +86,7 @@ const store = () => new Vuex.Store({
                 commit('SET_USER', decodeURIComponent(decodeURIComponent(utils.getcookiesInServer(req).token)));
                 commit('NICKNAME', decodeURIComponent(decodeURIComponent(utils.getcookiesInServer(req).nickname)));
                 commit('HEADIMGURL', decodeURIComponent(decodeURIComponent(utils.getcookiesInServer(req).headimgurl)));
+                commit('SET_LAYOUT', utils.getcookiesInServer(req).websiteflag);
             }
         }
     }

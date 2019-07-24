@@ -25,8 +25,11 @@
 	import Cookie from 'js-cookie'
 	// 提示语
 	import prompt from '~/assets/js/prompt'
+	import utils from '~/assets/js/utils'
 	export default {
-		layout: 'signHome',
+		layout ({ store }) {
+			return utils.signInWith2(store.state.layoutFlag)
+		},
 		data() {
 			return {
 				password: '',

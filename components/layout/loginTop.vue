@@ -3,8 +3,9 @@
         <div class="container">
             <div class="homeHead">
                 <div class="left">
-                    <img @click="goHome" src="~static/images/thmart.png" alt="">
-                    <img class="uf-logo" @click="goUfHome" src="~static/images/uflogo.png" alt="">
+                    <img v-if="logoShow == 'thmart'" @click="goHome" src="~static/images/thmart.png" alt="">
+                    <img v-if="logoShow == 'ufEn'" class="uf-logo" @click="goUfHome" src="~static/images/uflogo.png" alt="">
+                    <img v-if="logoShow == 'ufCn'" class="uf-logo" @click="goUfHome2" src="~static/images/logoCN.png" alt="">
                     <span class="loginName">LOGIN</span>
                 </div>
                 <div class="right"><img src="~static/images/thmartCode.jpg" alt=""></div>
@@ -14,6 +15,12 @@
 </template>
 <script>
     export default {
+        props: {
+            logoShow: {
+                type: String,
+                default: 'thmart'
+            }
+        },
         data() {
             return {
 
@@ -26,6 +33,9 @@
             },
             goUfHome() {
                 window.location.href = 'http://www.urban-family.com/';
+            },
+            goUfHome2() {
+                window.location.href = 'http://www.urfamily.com.cn/';
             }
         }
     }

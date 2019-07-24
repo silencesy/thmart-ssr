@@ -11,9 +11,11 @@
 </template>
 <script>
 	import signStep from '~/components/layout/signStep'
-	
+	import utils from '~/assets/js/utils'
 	export default {
-		layout: 'signHome',
+		layout ({ store }) {
+			return utils.signInWith2(store.state.layoutFlag)
+		},
 		data() {
 			return {
 				

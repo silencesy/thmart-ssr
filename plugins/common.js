@@ -37,7 +37,17 @@ var commonJs= {
             isLogin: function () {
                 var isLoginObj = utils.getcookiesInClient();
                 return isLoginObj.token?true: false;
-            }
+			},
+			// 第三方网站地址设置
+			setThirdPartyWebsite: function (path) {
+				if (path.indexOf('urfamily')!=-1) {
+					return 'urfamily'
+				} else if (path.indexOf('urban-family') != -1)  {
+					return 'urban-family'
+				} else {
+					return 'thmart'
+				}
+			}
         };
         
     }

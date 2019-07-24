@@ -55,8 +55,14 @@
 	import interfaceApi from '~/plugins/interfaceApi'
 	// 提示语
 	import prompt from '~/assets/js/prompt'
+	import utils from '~/assets/js/utils'
 	export default {
-	 	layout: 'loginHome',
+		// 根据请求的路径来决定使用哪个布局
+		layout ({ query }) {
+			var path = query.ref || '';
+			var websiteName = utils.signInWith(path);
+			return websiteName
+		},
 	    data() {
 	      return {
 	        activeName: 'first',
@@ -69,7 +75,9 @@
 	    },
 	    mounted() {
 				// this.alreadyRegistered();
-	    	this.setGoBackUrl();
+			this.setGoBackUrl();
+			// 设置登录注册忘记密码的标识，让登录注册忘记密码设置布局
+			this.setLayoutFlag();
 	    },
 	    methods: {
 				// 已经登录重定向首页
@@ -80,6 +88,12 @@
 				// 		this.$router.push('/');
 				// 	}
 				// },
+			// 设置登录注册忘记密码的标识，让登录注册忘记密码设置布局
+			setLayoutFlag() {
+				var path = this.$route.query.ref || '';
+				Cookie.set('websiteflag',utils.signInWith(path));
+				this.$store.commit('SET_LAYOUT', utils.signInWith(path));
+			},
 	    	setGoBackUrl() {
 				var url = this.$route.fullPath.substr(23,this.$route.fullPath.length);
 				console.log(this.$route.fullPath);
@@ -208,7 +222,7 @@
 				})
 			},
 			wechatLogin() {
-				let path = window.localStorage.getItem('goback');
+				let path = window.localStorage.getItem('goback') || '';
 				if(path.indexOf('urban-family.com') != -1 || path.indexOf('urfamily') != -1) {
 					var goback = path + "|" + window.location.origin + '/loginModule/signPhoneWx'+ '|pc';
 					window.location.href="https://open.weixin.qq.com/connect/qrconnect?appid=wxf62ca307a8f76a6e&redirect_uri=http%3A%2F%2Fapi.mall.thatsmags.com%2FthmartApi%2FUser%2FWx%2Flogin&response_type=code&scope=snsapi_login&state=" + goback;
