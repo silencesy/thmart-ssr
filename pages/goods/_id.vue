@@ -363,6 +363,11 @@
                     <el-tabs v-model="activeName" @tab-click="handleReviewsClick">
                         <el-tab-pane label="Details" name="first">
                             <div class="imgBox" v-html="goodsInfo.detail"></div>
+                            <div class="imgBox">
+                                <p>
+                                    <img src="~static/images/bottom-img.jpg" alt="">
+                                </p>
+                            </div>
                         </el-tab-pane>
                         <el-tab-pane label="Review" name="second">
                             <div class="reviews">
