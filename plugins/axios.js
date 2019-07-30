@@ -51,7 +51,7 @@ export default function ({ $axios,router, redirect,store }) {
 		// 手机号未注册
 		if (res.data.code == 109) {
 			Message({
-				message: 'This phone number has not been registered yet!',
+				message: 'The user with this username/mobile number is not registered!!',
 				type: 'warning'
 			});
 		}

@@ -10,7 +10,7 @@
 						<el-input v-model="password" type="password" placeholder="Password" @keyup.enter.native="loginPassword">
 							<i slot="prefix" class="iconfont icon-mima1"></i>
 						</el-input>
-						<button class="btn" @click="loginPassword">Login</button>
+						<button class="btn" :disabled="isDisable" @click="loginPassword">Login</button>
 						<div class="foot">
 							<nuxt-link :to="{name: 'loginModule-signPhone'}">Sign Up</nuxt-link>
 							<nuxt-link :to="{name: 'loginModule-passwordPhone'}">Forgot Password</nuxt-link>	
@@ -30,7 +30,7 @@
 						<el-input placeholder="Enter verification code" v-model="code" @keyup.enter.native="loginSms">
 							<i slot="prefix" class="iconfont icon-mima1"></i>
 						</el-input>
-						<button class="btn" @click="loginSms">
+						<button class="btn" :disabled="isDisable" @click="loginSms">
 							Login
 						</button>
 						<div class="foot">
@@ -65,6 +65,7 @@
 		},
 	    data() {
 	      return {
+			isDisable: false,
 	        activeName: 'first',
 	        phoneNumber: '',
 	        password: '',
@@ -192,12 +193,15 @@
 			// 发送登录请求
 			login() {
 				var that = this;
+				that.isDisable = true;
+				setTimeout(() => {
+					that.isDisable = false;
+				}, 3000);
 				that.$axios.post(interfaceApi.userWelogin,{
 					mobile: that.phoneNumber,
 					password: that.password,
 					code: that.code
 				}).then(res=> {
-					console.log(res);
 					if (res.data.code==1) {
 						// console.log(res);
 						/**
