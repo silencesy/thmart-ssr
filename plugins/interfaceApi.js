@@ -119,6 +119,8 @@ let api = {
     discountlist: 'Ads/Home/discountlist',
     userWelogin: 'User/welogin',
     // thats补全信息
-    userWeuserUpdate: 'User/weuserupdate'
+    userWeuserUpdate: 'User/weuserupdate',
+    // 个人中心商品推荐
+    itemWehotproduct:'Item/wehotproduct'
 }
 export default api

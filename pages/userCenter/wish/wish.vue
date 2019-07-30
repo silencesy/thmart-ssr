@@ -98,13 +98,7 @@
 				page: 1,
 				pageSize: 10
 			}
-			let param3 = {
-				id: 12,
-				pageSize: 12,
-				page: 0,
-				sort: 'order_asc'
-			}
-		 	const hotData = await app.$axios.post(interfaceApi.adsList,param3);
+		 	const hotData = await app.$axios.post(interfaceApi.itemWehotproduct);
 		 	const goodList = await app.$axios.post(interfaceApi.collectList,param1);
 		 	const shopList = await app.$axios.post(interfaceApi.collectList,param2);
   			return { 

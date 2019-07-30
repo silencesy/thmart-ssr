@@ -116,13 +116,7 @@
 			}
 		},
 		async asyncData ({app}) {
-			let param2 = {
-				id: 12,
-				pageSize: 12,
-				page: 0,
-				sort: 'order_asc'
-			}
-		 	const hotData = await app.$axios.post(interfaceApi.adsList,param2);
+		 	const hotData = await app.$axios.post(interfaceApi.itemWehotproduct);
   			return { 
   				hotData: hotData.data.data.data
   			}

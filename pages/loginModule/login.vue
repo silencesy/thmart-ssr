@@ -207,14 +207,20 @@
 						/**
 						 * 登录成功之后设置store (token,nickname,headimgurl)
 						 */
+						var data = res.data.data;
 
-						console.log(res.data.data.token);
-				  		Cookie.set('token', encodeURIComponent(res.data.data.token));
-                        Cookie.set('nickname',encodeURIComponent(res.data.data.nickname));
-                        Cookie.set('headimgurl',encodeURIComponent(res.data.data.headimgurl));
-						that.$store.commit('SET_USER',res.data.data.token);
-						that.$store.commit('NICKNAME',res.data.data.nickname);
-						that.$store.commit('HEADIMGURL',res.data.data.headimgurl);
+						// 后台返回数据混乱，有时候返回主域名有时候不反回 （如果多返回主域名那么前端把它去掉）
+						if(data.headimgurl) {
+							if(data.headimgurl.indexOf('thirdwx.qlogo.cn') != -1) {
+								data.headimgurl = data.headimgurl.replace('http://api.mall.thatsmags.com','');
+							}
+						}
+				  		Cookie.set('token', encodeURIComponent(data.token));
+                        Cookie.set('nickname',encodeURIComponent(data.nickname));
+                        Cookie.set('headimgurl',encodeURIComponent(data.headimgurl));
+						that.$store.commit('SET_USER',data.token);
+						that.$store.commit('NICKNAME',data.nickname);
+						that.$store.commit('HEADIMGURL',data.headimgurl);
 				    	that.user.JumpBackToPage();
 				    } else if (res.data.code == 125) {
 						window.sessionStorage.setItem("mobile",that.phoneNumber);

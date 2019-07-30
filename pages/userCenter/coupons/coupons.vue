@@ -8,6 +8,10 @@
 						<div class="coupons-item" @click="goCouponGoods(item.couponId)" v-for="item in couponList.data" :key="item.couponId">
 							<img v-lazy="item.pic" alt="">
 						</div>
+						<!-- <div>{{3-couponList.data.length%3}}</div> -->
+						<div class="coupons-item" v-for="(item,index) in 3-couponList.data.length%3" :key="index">
+							
+						</div>
 					</div>
 					<div class="noCoupons" v-if="couponList.data.length==0">
 						<p>More coupons are on the way!</p>
@@ -132,5 +136,8 @@
 						img
 							width: 100%
 							height: auto
+					.coupons-item:empty
+						opacity: 0
+						cursor: default
 
 </style>

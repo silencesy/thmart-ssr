@@ -16,19 +16,24 @@ var commonJs= {
         	JumpBackToPage: function() {
 				var address = localStorage.getItem('goback') ||  null;
 				if (address) {
+					// 判断如果是uf或者优智家 那么就跳转uf或者优智家
 					if (address.indexOf('urban-family.com') != -1 || address.indexOf('urfamily.com') != -1) {
+						// 如果过来的地址含？
 						if (address.indexOf('?') != -1) {
 							var token = Cookie.get('token');
 							window.location.href = address + '&token=' + decodeURIComponent(decodeURIComponent(token));
 						} else {
+						// 没有含？
 							var token = Cookie.get('token');
 							window.location.href = address + '?token=' + decodeURIComponent(decodeURIComponent(token));
 						}
 						
 					} else {
+					// 跳转商城上一个页面
 						window.location.href = address;
 					}
 				} else {
+					// 如果上一个页面没有就跳转首页
 					window.location.href = window.location.origin;
 				}
 				localStorage.removeItem('goback')

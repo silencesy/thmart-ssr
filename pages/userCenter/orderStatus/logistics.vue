@@ -37,9 +37,14 @@
 				company: query.company
 			}
 			const logistics = await app.$axios.post(interfaceApi.logistics,param);
+			// 反转返回的物流信息数组的排序（最新在最前面）
+			var logistics2 = logistics.data.data
+			if(logistics2.status == 1) {
+				logistics2.list = logistics2.list.reverse();
+			}
   			return {
   				param: param,
-  				logistics: logistics.data.data
+  				logistics: logistics2
   			}
 		},
 		components: {
