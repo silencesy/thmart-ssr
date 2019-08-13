@@ -15,6 +15,10 @@
 							<nuxt-link :to="{name: 'loginModule-signPhone'}">Sign Up</nuxt-link>
 							<nuxt-link :to="{name: 'loginModule-passwordPhone'}">Forgot Password</nuxt-link>	
 						</div>
+						<div class="wechat-Login-tip-box">
+							<div class="wechat-Login-tip">Wechat Login</div>
+							<div class="line"></div>
+						</div>
 						<div class="wechat">
 							<span @click="wechatLogin" class="iconfont icon-weixin1"></span>
 						</div>
@@ -36,6 +40,10 @@
 						<div class="foot">
 							<nuxt-link :to="{name: 'loginModule-signPhone'}">Sign Up</nuxt-link>
 							<nuxt-link :to="{name: 'loginModule-passwordPhone'}">Forgot Password</nuxt-link>	
+						</div>
+						<div class="wechat-Login-tip-box">
+							<div class="wechat-Login-tip">Wechat Login</div>
+							<div class="line"></div>
 						</div>
 						<div class="wechat">
 							<span @click="wechatLogin" class="iconfont icon-weixin1"></span>
@@ -256,8 +264,8 @@
 			overflow: hidden
 			.loginBox
 				float: right
-				margin-top: 100px
-				@include wh(350px, 300px)
+				margin-top: 80px
+				@include wh(350px, 350px)
 				background-color: #fff
 		.btn 
 			@include whch(310px, 36px, center, 36px)
@@ -272,6 +280,31 @@
 				padding: 15px 0 5px 0
 			a:last-child 
 				float: right
+		.wechat-Login-tip-box
+			height: 40px
+			position: relative
+			.wechat-Login-tip
+				text-align: center
+				color: #666666
+				width: 120px
+				height: 40px
+				line-height: 40px
+				background-color: #fff
+				position: absolute
+				left: 0
+				right: 0
+				top: 0
+				bottom: 0
+				margin: auto
+				z-index: 2
+			.line
+				width: 100%
+				height: 1px
+				background-color: #DFDFDF
+				position: absolute
+				top: 20px
+				left: 0
+				z-index: 1
 		.wechat 
 			text-align: center
 			.icon-weixin1 

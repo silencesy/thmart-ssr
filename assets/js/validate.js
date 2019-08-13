@@ -46,7 +46,7 @@ export default class Validate {
    * 验证手机格式
    */
   static tel(value) {
-    return /^1[2345789]\d{9}$/.test(value);
+    return /^1[23456789]\d{9}$/.test(value);
   }
   
   /**
