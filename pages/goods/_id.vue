@@ -138,7 +138,7 @@
                                                 </div>
                                                 <div class="buy row-item" v-show="!groupBorder">
                                                     
-                                                    <button @click="scqrcode('buy',goodsInfo.id)">Start Duo Deal</button>
+                                                    <button class="start-duo-deal" @click="scqrcode('buy',goodsInfo.id)">Start Duo Deal</button>
                                                 </div>
                                                 
                                                 <div class="tips row-item">
@@ -1242,7 +1242,7 @@
                                         border: 1px solid #eee
                                         color: #999
                             .buy
-                                margin: 30px 0 15px 0
+                                margin: 30px 0 20px 0
                                 button
                                     @include whch(180px, 40px, center, 40px)
                                     background-color: $theme_color
@@ -1250,6 +1250,8 @@
                                     border-radius: $border_radius
                                 button:first-child
                                     margin-right: 40px
+                                button.start-duo-deal
+                                    margin-left: 160px
                             .tips
                                 margin-bottom: 20px
                                 span
