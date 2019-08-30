@@ -45,7 +45,7 @@
                                                 <div class="row-item rowPrice" :class="{redPrice: goodsInfo.type=='group'}" v-if="!skuInfo && !skuInfo">
                                                     <span>Price</span>
                                                     <div>
-                                                        <el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'GROUPBUY':'Duo Deal' " class="item">
+                                                        <el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'FLASH SALES':'Duo Deal' " class="item">
                                                             <el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
                                                             <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
                                                         </el-badge>
@@ -253,7 +253,7 @@
                                     <div class="row-item rowPrice" :class="{redPrice: goodsInfo.type=='group'}" v-if="!skuInfo && !skuInfo">
                                         <span>Price</span>
                                         <div>
-                                            <el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'GROUPBUY':'Duo Deal' " class="item">
+                                            <el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'FLASH SALES':'Duo Deal' " class="item">
                                                 <el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
                                                 <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
                                             </el-badge>
