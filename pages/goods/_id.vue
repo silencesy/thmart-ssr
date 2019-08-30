@@ -286,7 +286,7 @@
                                     <div class="row-item rowPrice redPrice" v-if="skuInfo && skuInfo.type=='group'">
                                         <span class="price">Price</span>
                                         <div>
-                                            <el-badge value="GROUPBUY" class="item">
+                                            <el-badge value="FLASH SALES" class="item">
                                                 <el-button size="small">¥ {{skuInfo.price}}</el-button>
                                             </el-badge>
                                             <del class="del" style="color:#fff;" v-if="skuInfo.originalPrice">¥ {{skuInfo.originalPrice}}</del>
