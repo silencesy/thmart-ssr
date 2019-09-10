@@ -621,7 +621,9 @@
                     id: couponId
                 }
                 that.$axios.post(interfaceApi.getCoupon,param).then(res=> {
-                    that.goodsInfo.couponList[index].isGet = 1;
+                    if(res.data.code == 1) {
+                        that.goodsInfo.couponList[index].isGet = 1;
+                    }
                 });
             },
             // 点击get显示券列表
