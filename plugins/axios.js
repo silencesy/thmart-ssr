@@ -71,10 +71,10 @@ export default function ({ $axios,router, redirect,store }) {
 			Message.error('原始密码错误！');
 		}
 		if (res.data.code == 129) {
-			Toast('Sorry, the coupon collection is closed now.');
+			Message.error('Sorry, the coupon collection is closed now.');
 		}
 		if (res.data.code == 130) {
-			Toast('The coupon is expired.');
+			Message.error('The coupon is expired.');
 		}
 		
 		// if (res.data.code==0) {
