@@ -63,6 +63,12 @@
                             <span>¥ {{orderDetails.priceTotal}} <button @click="pay" v-if="orderDetails.status == 0" class="redColor">Pay</button></span>
 
                         </div>
+                        <div class="qr" v-for="(item,index) in orderDetails.data.ticketqrs" :key="index">
+                            <div>Please show your QR code to the ticketing staff on site.</div>
+                            <div>
+                                <img @click="showQr(item.pic)" v-lazy="item.pic" alt="">
+                            </div>
+                        </div>
                     </div>
                     <div class="statusRight">
                         <slot name="statusInfo"></slot>
@@ -136,6 +142,16 @@
             </div>
             <p class="tips">If you need after-sales service, please contact us within 7 days after you receive the parcel. We will not accept the request if overdue. Thanks for your cooperation and understanding.</p>
         </div>
+        <!-- 二维码弹框 -->
+        <el-dialog
+            title="Please show your QR code to the ticketing staff on site."
+            :visible.sync="QRdialogVisible"
+            width="20%"
+            >
+            <div class="qr-img-box">
+                <img v-lazy="QRimg" alt="">
+            </div>
+        </el-dialog>
     </div>
 </template>
 <script>
@@ -160,10 +176,15 @@
         },
 	    data() {
             return {
-
+                QRdialogVisible: false,
+                QRimg: ''
             }
         },
         methods: {
+            showQr(e) {
+                this.QRdialogVisible = true;
+                this.QRimg = e;
+            },
             // 去支付
             pay() {
                 this.$router.push({path: '/payProcess/aliPay',query: {orderNumber: this.$route.query.orderNumber}});
@@ -193,6 +214,25 @@
 </script>
 <style lang='sass' type="text/css" scoped>
 @import '~/assets/sass/common.sass'
+.qr-img-box
+    text-align: center
+    img
+        width: 100%
+        height: 100%
+.qr
+    display: flex
+    div:nth-child(1)
+        width: 310px
+        color: #666
+        align-self: center
+    div:nth-child(2)
+        width: 100px
+        align-self: center
+        text-align: right
+        img
+            width: 80px
+            height: 80px
+            cursor: pointer
 .disable
     background: #dfdfdf !important
 .redColor
