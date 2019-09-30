@@ -4,64 +4,90 @@
 
 			<!-- 轮播图 -->
 			<SwiperComponent :swiperData="homeData.figure"/>
-			<!-- today's deal -->
-			<div class="deal">
-				<div class="container">
-					<nuxt-link to="/deals/1">
-						<div class="deal-logo" :style="{backgroundImage:'url(' + homeData.deal.pic + ')'}"></div>
-					</nuxt-link>
-					<div v-swiper:mySwiper="swiperOption" style="overflow: hidden;">
-					    <div class="swiper-wrapper" >
-					      <div class="swiper-slide" v-for="(item,index) in homeData.deal.data" :key="index">
-					        <img class="icon" style="width: 69px;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
-        					<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
-							<img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
-							<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" target="_blank">
-								<div class="dealSwiper">
-									<div><img v-lazy="item.pic" alt=""></div>
-									<div class="dealTxt">
-										<p>{{item.title}}</p>
-										<div>
-											<span>¥{{item.price}}</span>
-											<del v-if="item.originalPrice">¥{{item.originalPrice}}</del>
+			<div style="overflow:hidden">
+				<!-- today's deal -->
+				<div class="deal">
+					<div class="container">
+						<nuxt-link to="/deals/1">
+							<div class="deal-logo" :style="{backgroundImage:'url(' + homeData.deal.pic + ')'}"></div>
+						</nuxt-link>
+						<div v-swiper:mySwiper="swiperOption" style="overflow: hidden;">
+							<div class="swiper-wrapper" >
+							<div class="swiper-slide" v-for="(item,index) in homeData.deal.data" :key="index">
+								<img class="icon" style="width: 69px;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
+								<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+								<img class="icon" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
+								<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" target="_blank">
+									<div class="dealSwiper">
+										<div><img v-lazy="item.pic" alt=""></div>
+										<div class="dealTxt">
+											<p>{{item.title}}</p>
+											<div>
+												<span>¥{{item.price}}</span>
+												<del v-if="item.originalPrice">¥{{item.originalPrice}}</del>
+											</div>
 										</div>
 									</div>
-								</div>
-							</nuxt-link>
-					      </div>
-					    </div>
-					    <div class="swiper-button-next"></div>
-					    <div class="swiper-button-prev"></div>
-				  	</div>
+								</nuxt-link>
+							</div>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+						</div>
+					</div>
+				</div>
+				<!-- 拼单 -->
+				<div class="deal spell">
+					<div class="container">
+						<a>
+							<div class="deal-logo" :style="{backgroundImage:'url(' + homeData.pditem.pic + ')'}"></div>
+						</a>
+						<div v-swiper:mySwiper2="swiperOption" style="overflow: hidden;">
+							<div class="swiper-wrapper" >
+							<div class="swiper-slide" v-for="(item,index) in homeData.pditem.data" :key="index">
+								<img class="icon" style="width: 69px;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
+								<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
+								<img class="icon spell" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
+								<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" target="_blank">
+									<div class="dealSwiper">
+										<div><img v-lazy="item.pic" alt=""></div>
+										<div class="dealTxt">
+											<p>{{item.title}}</p>
+											<div>
+												<span>¥{{item.price}}</span>
+												<del v-if="item.originalPrice">¥{{item.originalPrice}}</del>
+											</div>
+										</div>
+									</div>
+								</nuxt-link>
+							</div>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<!-- 拼单 -->
-			<div class="deal spell">
-				<div class="container">
-					<div class="deal-logo" :style="{backgroundImage:'url(' + homeData.pditem.pic + ')'}"></div>
-					<div v-swiper:mySwiper2="swiperOption" style="overflow: hidden;">
-					    <div class="swiper-wrapper" >
-					      <div class="swiper-slide" v-for="(item,index) in homeData.pditem.data" :key="index">
-					        <img class="icon" style="width: 69px;" v-if="item.saleType.type == 'group'" src="~static/images/group.png" alt="">
-        					<img class="icon" v-if="item.saleType.type == 'sale'" src="~static/images/sale.png" alt="">
-							<img class="icon spell" v-if="item.saleType.type == 'spell'" src="~static/images/duodeal.png" alt="">
-							<nuxt-link :to="{name: 'goods-id', params: {id: item.id}}" target="_blank">
-								<div class="dealSwiper">
-									<div><img v-lazy="item.pic" alt=""></div>
-									<div class="dealTxt">
-										<p>{{item.title}}</p>
-										<div>
-											<span>¥{{item.price}}</span>
-											<del v-if="item.originalPrice">¥{{item.originalPrice}}</del>
-										</div>
-									</div>
-								</div>
-							</nuxt-link>
-					      </div>
-					    </div>
-					    <div class="swiper-button-next"></div>
-					    <div class="swiper-button-prev"></div>
-				  	</div>
+			<!-- 旅游 -->
+			<div class="editor container">
+				<div class="title">
+					<nuxt-link to="/article/articleList">
+						<img :src="homeData.exploreChina.pic" alt="">
+					</nuxt-link>
+					<!-- <img src="~static/images/editor.png" alt="">
+					<nuxt-link to="/article/articleList">More<i class="iconfont icon-combinedshapefuben"></i></nuxt-link> -->
+				</div>
+				<div class="articlePer">
+					<nuxt-link v-for="(item,index) in homeData.exploreChina.data" :key="index" v-if="index<9" :to="{name: 'goods-id',params: {id: item.id}}">
+						<p><img v-lazy="item.pic" alt=""></p> 
+						<div class="per">
+							<p>{{item.title}}</p>
+							<span class="theme_color">￥{{item.price}}</span>
+						</div>
+					</nuxt-link>
+					<!-- <nuxt-link class="more" to="/article/articleList">
+						<p>More</p>
+					</nuxt-link> -->
 				</div>
 			</div>
 			<div class="homeSection container">
@@ -95,27 +121,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="editor container">
-				<div class="title">
-					<nuxt-link to="/article/articleList">
-						<img :src="homeData.exploreChina.pic" alt="">
-					</nuxt-link>
-					<!-- <img src="~static/images/editor.png" alt="">
-					<nuxt-link to="/article/articleList">More<i class="iconfont icon-combinedshapefuben"></i></nuxt-link> -->
-				</div>
-				<div class="articlePer">
-					<nuxt-link v-for="(item,index) in homeData.exploreChina.data" :key="index" v-if="index<6" :to="{name: 'goods-id',params: {id: item.id}}">
-						<p><img v-lazy="item.pic" alt=""></p> 
-						<div class="per">
-							<p>{{item.title}}</p>
-							<span class="theme_color">￥{{item.price}}</span>
-						</div>
-					</nuxt-link>
-					<!-- <nuxt-link class="more" to="/article/articleList">
-						<p>More</p>
-					</nuxt-link> -->
-				</div>
-			</div>
+			
 			<!-- <div class="homeAd container"><img src="~static/images/ad.jpg" alt=""></div> -->
 			<!-- <floor :floorData="homeData.ticketing"/> -->
 		<!-- 	<floor :floorData="homeData.flowers"/>
