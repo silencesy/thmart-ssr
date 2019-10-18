@@ -24,6 +24,10 @@
 						<span>Final Price :</span>
 						<span class="theme_color">¥ {{details.priceTotal}}</span>
 					</p>
+					<p v-if="details.buyerRemark!=0">
+						<span>Remark :</span>
+						<span>{{details.buyerRemark}}</span>
+					</p>
 					<div>
 						<button class="iconfont icon-zhifubao" @click="alipay"></button>
 						<button class="iconfont icon-weixinzhifu" @click="wechatpay"></button>

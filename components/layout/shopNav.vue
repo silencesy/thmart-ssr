@@ -18,7 +18,7 @@
                 <div class="right"><img src="~static/images/thmartCode.jpg" alt=""></div>
             </div> 
         </div>
-        <div class="shopTopPic"><img :src="$store.state.shopInfo.banner" alt=""></div>
+        <div class="shopTopPic" v-if="$store.state.shopInfo.banner"><img :src="$store.state.shopInfo.banner" alt=""></div>
         <div class="container shopContainer" v-show="show">
             <div class="shopTitle">
                 <a style="cursor: pointer;" :class="{theme_color: $route.name == 'shop-id'||$route.name == 'shop-peaceHotel'}" @click="goShop">Home</a>

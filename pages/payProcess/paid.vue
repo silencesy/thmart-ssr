@@ -24,6 +24,10 @@
 						<span>Final Price :</span>
 						<span class="price">¥ {{details.priceTotal}}</span>
 					</p>
+					<p v-if="details.buyerRemark!=0">
+						<span>Remark :</span>
+						<span>{{details.buyerRemark}}</span>
+					</p>
 					<p>
 						<span class="iconfont icon-duihao"></span>
 						<span class="paid">Payment successful</span>

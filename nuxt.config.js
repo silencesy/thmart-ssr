@@ -8,7 +8,14 @@ module.exports = {
             { charset: 'utf-8' },
             { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge,chrome=1' },
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+            {
+                hid: 'keywords', name: 'keywords', content: `
+                online shopping, snacks, wine, beverages, alcohol, spirits, food, drink, tickets, events, concerts, shows, art, exhibits, gallery, entertainment, shanghai, beijing, guangzhou, shenzhen, suzhou, tianjin, china, expats, english, chinese, wechat, alipay, stage, family, sport, deals, event tickets, buy tickets, experiences, vegan, kitchen, house, home, homeware, furniture, cleaning, supplies, kids, children, family, household, pets, health, sports, office, school, dining, esssentials, decor, bed, bath, electornics, appliances, audio, video, gaming, phones, tablets, wearables, photo, film, games, parties, toys, fashion, men, women, girls, boys, babies, infants apparel, bags, accessories, beauty, cosmetics, fashion, nursery, maternity, pet care, beer, wine, liquor, bar, coffee, tea, pantry, bikes, scooters, fitness, sexual wellness, travel, tours, outdoors, hotel, resort, luxury, spa, coupons, gifts, haircare, skincare, skin, hair, makeup, books, magazines, music, computers, shoes, jewelry, tools, hardware, sporting goods, personal care, gourmet food, thmart.com
+            ` },
+            {
+                hid: 'description', name: 'description', content: `
+                thmart.com.cn, thmart, that's shanghai, thatsshanghai, thats shanghai, that's beijing, thatsbeijing, thats beijing, that's prd, thatsprd, thats prd, that's guangzhou, thatsguangzhou, thats guangzhou, that's shenzhen, thatsshenzhen, thats shenzhen, that's tianjin, thatstianjin, thats tianjin, that's suzhou, thatssuzhou, thats suzhou, foreign, foreigners, international, shipping, cell phones, watches, subscription, book store, video games, office products, baby products, baby care, garden, vacuums, nightlife, lifestyle, theater, theatre, e-commerce
+            ` }
         ],
         // 谷歌统计
         script: [{

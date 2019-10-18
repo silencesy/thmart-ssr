@@ -347,6 +347,11 @@
 						message: 'Please select the address!',
 						type: 'warning'
 					});
+				} else if (that.orderData.isaddress==1&&that.addressList[that.defaultBox].province=='N/A') {
+					that.$message({
+			          message: 'Please fill in your detailed address information!',
+			          type: 'warning'
+			        });
 				} else {
 					var param = {
 						couponId: that.defaultCoupons==null?0:that.defaultCoupons.couponId,

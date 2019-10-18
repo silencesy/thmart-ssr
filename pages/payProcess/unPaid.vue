@@ -24,6 +24,10 @@
 						<span>Final Price :</span>
 						<span class="theme_color">¥ {{details.priceTotal}}</span>
 					</p>
+					<p v-if="details.buyerRemark!=0">
+						<span>Remark :</span>
+						<span>{{details.buyerRemark}}</span>
+					</p>
 					<div>
 						<button @click="pay" class="backOrder">Continue To Pay</button>
 						<button @click="goHome" class="backHome">Home</button>
