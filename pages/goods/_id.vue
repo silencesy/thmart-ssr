@@ -46,8 +46,8 @@
                                                     <span>Price</span>
                                                     <div>
                                                         <el-badge :value="goodsInfo.type=='none'?'':goodsInfo.type=='sale'?'SALE':goodsInfo.type=='group'?'FLASH SALES':'Duo Deal' " class="item">
-                                                            <el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
-                                                            <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
+                                                            <el-button size="small" v-if="goodsClassTabName=='spell' && goodsInfo.minPrice != goodsInfo.singleBuyPriceMax">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.singleBuyPriceMax}}</el-button>
+                                                            <el-button size="small" v-if="goodsClassTabName=='spell' && goodsInfo.minPrice == goodsInfo.singleBuyPriceMax">¥ {{goodsInfo.minPrice}}</el-button>
                                                         </el-badge>
                                                     </div>
                                                     <div class="GroupCountDown" v-if="goodsInfo.type=='group'">
@@ -161,8 +161,8 @@
                                                     <span>Price</span>
                                                     <div>
                                                         <el-badge class="item">
-                                                            <el-button size="small" v-if="goodsInfo.minPrice != goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
-                                                            <el-button size="small" v-if="goodsInfo.minPrice == goodsInfo.maxPrice">¥ {{goodsInfo.minPrice}}</el-button>
+                                                            <el-button size="small" v-if="goodsClassTabName=='original' && goodsInfo.singleBuyPrice != goodsInfo.maxPrice">¥ {{goodsInfo.singleBuyPrice}} - ￥{{goodsInfo.maxPrice}}</el-button>
+                                                            <el-button size="small" v-if="goodsClassTabName=='original' && goodsInfo.singleBuyPrice == goodsInfo.maxPrice">¥ {{goodsInfo.singleBuyPrice}}</el-button>
                                                         </el-badge>
                                                     </div>
                                                     <div class="GroupCountDown" v-if="goodsInfo.type=='group'">

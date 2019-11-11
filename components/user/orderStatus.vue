@@ -118,7 +118,9 @@
                                 </div>
                             </div>
                             <div class="wuliu price">
-                                <div>
+                                <p v-if="val.company == 'mail'">We just sent the email, please kindly check your mailbox.</p>
+                                <p class="tk" v-else-if="val.company == 'tk'">We have received your refund request, and you will be able to receive it within two business days.</p>
+                                <div v-else>
                                     <a :class="{disable: orderDetails.status == 0 || orderDetails.status == 1 || orderDetails.status == 4}" @click="tracking(val.company,val.logistics)">Tracking your Order</a>
                                     <a v-if="orderDetails.status == 3" :class="{disable:val.hasComment==1}" @click="addReviews(val.id,val.hasComment)">Review</a>
                                 </div>
@@ -390,7 +392,14 @@
                         >div 
                             span 
                                 color: #666
-                    .wuliu 
+                    .wuliu
+                        p
+                            text-align: left
+                            padding: 0 5px
+                            margin-top: 30px
+                            color: #F9421E
+                        p.tk
+                            margin-top: 22px
                         >div 
                             a 
                                 display: inline-block
