@@ -122,6 +122,7 @@
                                 <p class="tk" v-else-if="val.company == 'tk'">We have received your refund request, and you will be able to receive it within two business days.</p>
                                 <div v-else>
                                     <a :class="{disable: orderDetails.status == 0 || orderDetails.status == 1 || orderDetails.status == 4}" @click="tracking(val.company,val.logistics)">Tracking your Order</a>
+                                    <a v-if="orderDetails.status==2&&!val.confirmtime" @click="confirmOrder(val)">Delivery Confirmed</a>
                                     <a v-if="orderDetails.status == 3" :class="{disable:val.hasComment==1}" @click="addReviews(val.id,val.hasComment)">Review</a>
                                 </div>
                             </div>
@@ -157,6 +158,9 @@
     </div>
 </template>
 <script>
+    
+    // 接口API
+    import interfaceApi from '~/plugins/interfaceApi'
     // 提示语
     import prompt from '~/assets/js/prompt'
 	export default {
@@ -210,7 +214,18 @@
                 } else {
                     this.$router.push({name: 'userCenter-review',query: {id: id}});
                 }
+            },
+            confirmOrder(item) {
+                var that = this;
+				const params = {
+                    orderNumber: that.$route.query.orderNumber,
+                    id: item.id
+                }
+				that.$axios.post(interfaceApi.ordersskuconfirm,params).then(res=> {
+                    that.$emit('reloadData')
+				})
             }
+            
         }
 	}
 </script>

@@ -1,6 +1,6 @@
 <template>
 	<div class="user">
-		<orderStatus type="3" :orderDetails="orderDetails">
+		<orderStatus type="3" :orderDetails="orderDetails" @reloadData="reloadData">
 			<div slot="statusInfo" class="statusInfo">
 				<p>
 					<span><img src="~/static/images/icon-yuandian.png" alt=""></span>
@@ -44,7 +44,15 @@
 		    
 	  	},
 		methods: {
-
+			reloadData() {
+				var that = this;
+				const param = {
+					orderNumber: that.$route.query.orderNumber
+				}
+				that.$axios.post(interfaceApi.OrderDetail,param).then(res=> {
+					that.orderDetails = res.data.data;
+				})
+			}
 		}
 	}
 </script>

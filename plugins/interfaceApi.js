@@ -48,6 +48,8 @@ let api = {
     orderList: 'Order/list',
     // 订单详情页
     OrderDetail: 'Order/detail',
+    // 确认定单
+    ordersskuconfirm: 'Order/ordersskuconfirm ',
     // 支付页信息
     payOrderDetail: 'Order/payOrderDetail',
     /**
