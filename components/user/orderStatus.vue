@@ -217,13 +217,25 @@
             },
             confirmOrder(item) {
                 var that = this;
-				const params = {
-                    orderNumber: that.$route.query.orderNumber,
-                    id: item.id
-                }
-				that.$axios.post(interfaceApi.ordersskuconfirm,params).then(res=> {
-                    that.$emit('reloadData')
-				})
+                that.$confirm('Have you received your package?', '', {
+                    confirmButtonText: 'Yes',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                }).then(() => {
+                    const params = {
+                        orderNumber: that.$route.query.orderNumber,
+                        id: item.id
+                    }
+                    that.$axios.post(interfaceApi.ordersskuconfirm,params).then(res=> {
+                        that.$message({
+                        type: 'success',
+                        message: 'successfully!'
+                    });
+                        that.$emit('reloadData')
+                    })
+                }).catch(() => {
+                       
+                });
             }
             
         }
