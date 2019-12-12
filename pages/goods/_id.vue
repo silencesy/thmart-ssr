@@ -364,7 +364,7 @@
                         <el-tab-pane label="Details" name="first">
                             <div class="imgBox" v-html="goodsInfo.detail"></div>
                             <div class="imgBox">
-                                <p>
+                                <p class="dituimg">
                                     <img src="~static/images/bottom-img.jpg" alt="">
                                 </p>
                             </div>
@@ -1275,6 +1275,11 @@
                     width: 910px
                     img
                         width: 750px
+                    .dituimg
+                        text-align: center
+                        background-color: #fd9d24
+                        img
+                            width: 500px !important
 .no-comment
     height: 400px
     line-height: 400px
