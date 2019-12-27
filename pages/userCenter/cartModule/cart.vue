@@ -121,6 +121,8 @@
 							that.dataList.total = response.data.data.total;
 							// 赋值满减
 							that.dataList.reduceTotal = response.data.data.reduceTotal;
+							// 赋值是否购买通过
+							that.dataList.ispay = response.data.data.ispay;
 							// 设置单个商品选中状态
 							that.setSelectGoods(goods.skuId,goods.isSelect);
 							// 设置商户选中状态
@@ -216,6 +218,8 @@
 							that.dataList.total = response.data.data.total;
 							// 赋值满减
 							that.dataList.reduceTotal = response.data.data.reduceTotal;
+							// 赋值是否购买通过
+							that.dataList.ispay = response.data.data.ispay;
 							// 批量设置选中
 							that.multipleSelect(brandId,status,cartIdArray);
 							// 控制所有选中按钮的状态
@@ -270,6 +274,8 @@
 								that.dataList.total = response.data.data.total;
 								// 赋值满减
 								that.dataList.reduceTotal = response.data.data.reduceTotal;
+								// 赋值是否购买通过
+								that.dataList.ispay = response.data.data.ispay;
 								that.setAllSelect(!allSelect);
 								that.allSelect = !allSelect;
 							}
@@ -284,7 +290,10 @@
 							if (response.data.code == 1) {
 								// 赋值总价
 								that.dataList.total = response.data.data.total;
+								// 赋值是否购买通过
+								that.dataList.ispay = response.data.data.ispay;
 								// 赋值满减
+								
 								that.dataList.reduceTotal = response.data.data.reduceTotal;
 								that.setAllSelect(!allSelect);
 								that.allSelect = !allSelect;
@@ -399,6 +408,12 @@
 				if (this.dataList.total == 0) {
 					this.$notify({
                       title: 'Please select at least one goods!',
+                      message: '',
+                      type: 'warning'
+                    });
+				} else if (this.dataList.ispay == 0) {
+					this.$notify({
+                      title: 'To purchase eTickets, please submit your order separately.',
                       message: '',
                       type: 'warning'
                     });
