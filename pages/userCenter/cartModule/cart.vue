@@ -353,6 +353,7 @@
 							if (response.data.code == 1) {
 								// 赋值总价
 								that.dataList.total = response.data.data.total;
+								that.dataList.ispay = response.data.data.ispay;
 								// 赋值满减
 								that.dataList.reduceTotal = response.data.data.reduceTotal;
 								for (var i = 0; i < that.dataList.data.length; i++) {
