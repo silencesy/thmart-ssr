@@ -123,6 +123,8 @@ let api = {
     // thats补全信息
     userWeuserUpdate: 'User/weuserupdate',
     // 个人中心商品推荐
-    itemWehotproduct:'Item/wehotproduct'
+    itemWehotproduct:'Item/wehotproduct',
+    // 春运提示
+    getmessage: 'getmessage'
 }
 export default api

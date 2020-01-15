@@ -29,6 +29,9 @@
 					
 
 				</div>
+				<div v-if="springTips == 1" class="spring-tips">
+					* Dear customer, please note that our delivery service will be suspended during Chinese New Year Holiday (Jan.14 - Feb.3). Thank you for your understanding!
+				</div>
 				<div class="confirmGoods">
 					<div class="title">Order Confirmation</div>
 					<div class="goodsBox">
@@ -293,7 +296,8 @@
 					email: '',
 					regionDetail: ''
 				},
-				buyerRemark: ''
+				buyerRemark: '',
+				springTips: 0 //春运提示
 			}
 		},
 		middleware: 'userAuth',
@@ -308,9 +312,11 @@
 			}
 		 	const goodsInfo = await app.$axios.post(interfaceApi.prepareOrder,param2);
 		 	const addressList = await app.$axios.post(interfaceApi.addressList,param);
+		 	const springTips = await app.$axios.get(interfaceApi.getmessage);
 		 	// 如果优惠券数量大于一则赋值优惠券默认值
 		 	
-  			return { 
+  			return {
+				springTips: springTips.data.data.data,
   				orderData: goodsInfo.data.data,
   				defaultCoupons: goodsInfo.data.data.userCouponList.length>0?goodsInfo.data.data.userCouponList[0]:null,
   				addressList: addressList.data.data.data,
@@ -520,6 +526,11 @@
 
 <style lang='sass' scoped>
 @import '~/assets/sass/common.sass'
+.spring-tips
+	margin-top: 20px
+	border: 1px solid #dfdfdf
+	padding: 15px
+	color: #F9421E
 .orderConfirm
 	.container
 		.confirmBox

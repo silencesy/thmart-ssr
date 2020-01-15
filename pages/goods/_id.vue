@@ -1240,7 +1240,7 @@
                                         color: $theme_color
                                         border: 1px solid $theme_color
                                     .soldOut
-                                        background-color: #eee
+                                        background-color: #f5f5f5
                                         border: 1px solid #eee
                                         color: #999
                             .buy
