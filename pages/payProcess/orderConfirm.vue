@@ -29,9 +29,7 @@
 					
 
 				</div>
-				<div v-if="springTips == 1" class="spring-tips">
-					* Dear customer, please note that our delivery service will be suspended during Chinese New Year Holiday (Jan.14 - Feb.3). Thank you for your understanding!
-				</div>
+				<div v-if="springTips.sysval == 1" v-html="springTips.showtext" class="spring-tips"></div>
 				<div class="confirmGoods">
 					<div class="title">Order Confirmation</div>
 					<div class="goodsBox">
@@ -297,7 +295,10 @@
 					regionDetail: ''
 				},
 				buyerRemark: '',
-				springTips: 0 //春运提示
+				springTips: {
+					showtext: '',
+					sysval: 0
+				} //春运提示
 			}
 		},
 		middleware: 'userAuth',
